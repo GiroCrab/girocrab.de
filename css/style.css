@@ -50,3 +50,166 @@ code{background:var(--card);border-radius:.3rem;padding:.1em .35em;font-size:.9e
 details{background:var(--card);border-radius:.75rem;padding:1rem 1.25rem;margin:.75rem 0}
 summary{cursor:pointer;font-weight:600}
 details p{margin:.75rem 0 0;color:var(--muted)}
+
+/* === Premium macOS Product Page Polish === */
+* {
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: saturate(180%) blur(16px);
+  -webkit-backdrop-filter: saturate(180%) blur(16px);
+}
+
+.hero {
+  position: relative;
+  background: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(10, 132, 255, 0.14), transparent 70%);
+}
+
+.showcase img,
+.feature img {
+  border-radius: 14px;
+  box-shadow: 0 22px 50px -12px rgba(0, 0, 0, 0.28), 0 0 0 1px rgba(128, 128, 128, 0.18);
+}
+
+.badges li {
+  font-weight: 500;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+.badges li.ok {
+  background: rgba(48, 209, 88, 0.14);
+  border-color: rgba(48, 209, 88, 0.35);
+}
+
+/* Section Header & Eyebrow */
+.section-head {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto 2.5rem auto;
+}
+.eyebrow {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #0a84ff;
+  background: rgba(10, 132, 255, 0.1);
+  border: 1px solid rgba(10, 132, 255, 0.22);
+  padding: 0.28rem 0.75rem;
+  border-radius: 999px;
+  margin-bottom: 0.75rem;
+}
+.section-head h2 {
+  margin: 0.2rem 0 0.6rem 0;
+  font-size: 2rem;
+  letter-spacing: -0.02em;
+}
+.section-lead {
+  opacity: 0.75;
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+/* Bento Quote Cards */
+.quotes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.35rem;
+}
+.quote-card {
+  position: relative;
+  margin: 0;
+  padding: 1.5rem 1.5rem 1.25rem;
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(128, 128, 128, 0.06) 0%, rgba(128, 128, 128, 0.02) 100%);
+  border: 1px solid rgba(128, 128, 128, 0.16);
+  box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.quote-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(10, 132, 255, 0.4);
+  box-shadow: 0 14px 32px -8px rgba(10, 132, 255, 0.12);
+}
+.quote-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+.stars {
+  color: #ff9f0a;
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+}
+.quote-tag {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.2rem 0.55rem;
+  border-radius: 6px;
+  background: rgba(128, 128, 128, 0.12);
+  opacity: 0.85;
+}
+.quote-card h4 {
+  margin: 0 0 0.55rem 0;
+  font-size: 1.02rem;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+.quote-card p {
+  margin: 0 0 1.25rem 0;
+  line-height: 1.6;
+  font-size: 0.94rem;
+  opacity: 0.86;
+}
+.quote-card cite {
+  font-style: normal;
+  font-size: 0.8rem;
+  font-weight: 600;
+  opacity: 0.72;
+  padding-top: 0.85rem;
+  border-top: 1px solid rgba(128, 128, 128, 0.14);
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+.quote-card .dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #30d158;
+  display: inline-block;
+}
+
+/* Aufgewertete FAQ-Akkordeons */
+#faq details {
+  border: 1px solid rgba(128, 128, 128, 0.16);
+  border-radius: 12px;
+  padding: 0.95rem 1.2rem;
+  margin-bottom: 0.75rem;
+  background: rgba(128, 128, 128, 0.04);
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+#faq details[open] {
+  border-color: rgba(10, 132, 255, 0.45);
+  background: rgba(10, 132, 255, 0.04);
+}
+#faq summary {
+  font-weight: 600;
+  cursor: pointer;
+}
+#faq details p {
+  margin: 0.7rem 0 0 0;
+  line-height: 1.6;
+  opacity: 0.88;
+}
