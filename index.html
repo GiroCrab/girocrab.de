@@ -14,24 +14,82 @@
 </head>
 <body>
 <header><div class="wrap"><a class="brand" href="/">GiroCrab</a>
-<nav><a href="/#features">Features</a><a href="/#links">Links</a></nav></div></header>
+<nav><a href="/#features">Features</a><a href="/#faq">FAQ</a><a href="/#links">Links</a></nav></div></header>
 <main>
 <section class="hero"><div class="wrap">
-<img src="/img/logo.svg" alt="GiroCrab-Logo" width="128" height="128">
+<img class="logo" src="/img/logo.svg" alt="GiroCrab-Logo" width="128" height="128">
 <h1>GiroCrab</h1>
-<p class="tagline">Natives, datensparsames Online-Banking für macOS</p>
+<p class="tagline">Natives, datensparsames Online-Banking für macOS – lokal, verschlüsselt, ohne Cloud-Zwang.</p>
 <a class="btn" href="https://github.com/GiroCrab/GiroCrab/releases/latest">Download für macOS</a>
+<p class="version">Aktuelle Version v0.5.1 · macOS 14+ · Apple Silicon</p>
 <ul class="badges">
-<li>Apple-notarisiert</li><li>100 % lokal</li><li>Open Source (Rust + SwiftUI)</li><li>Direktes FinTS ohne Mittelsmann</li>
+<li class="ok">✓ Von Apple notarisiert</li><li>100 % lokal</li><li>Open Source (Rust + SwiftUI)</li><li>Direktes FinTS ohne Mittelsmann</li>
 </ul>
+<picture class="showcase">
+<source media="(prefers-color-scheme: dark)" srcset="/img/screenshots/overview-dark.png">
+<img src="/img/screenshots/overview.png" alt="GiroCrab-Übersicht mit fiktiven Demo-Konten" width="2940" height="1698" fetchpriority="high">
+</picture>
+<p class="note">Alle Screenshots zeigen ausschließlich erfundene Demo-Daten.</p>
 </div></section>
 <section id="features"><div class="wrap">
 <h2>Features</h2>
-<div class="grid">
-<div class="card"><h3>Datenschutz</h3><p>Kein Tracking, keine Cloud. Händler-Logos und Favicons werden nur geladen, wenn du das aktivierst (Opt-in).</p></div>
-<div class="card"><h3>Performance</h3><p>Der Kern ist in Rust geschrieben: schnell, speichersicher und mit verschlüsseltem lokalem Tresor.</p></div>
-<div class="card"><h3>Komfort</h3><p>Schnelle Notizen zu Buchungen per Doppelklick oder Return und Import aus MoneyMoney.</p></div>
+<div class="feature">
+<div class="text">
+<h3>Direktes FinTS-Banking</h3>
+<p>GiroCrab verbindet sich direkt von deinem Mac mit deiner Bank – per HBCI/FinTS 3.0, ohne Server dazwischen.</p>
+<ul>
+<li>PIN/TAN-Verfahren inkl. App-Freigabe (PushTAN, SecureGo plus), ChipTAN und photoTAN</li>
+<li>SEPA-Überweisungen mit IBAN-Prüfung, Empfängervorschlägen und sofort vorgemerkter Buchung</li>
+<li>Umsätze per CAMT und MT940, dazu comdirect, bunq, PayPal und weitere Anbindungen</li>
+</ul>
 </div>
+<img src="/img/screenshots/sepa-transfer.png" alt="Neue SEPA-Überweisung mit geprüfter IBAN" width="1040" height="662" loading="lazy">
+</div>
+<div class="feature flip">
+<div class="text">
+<h3>Lokale Sicherheit &amp; Datenschutz</h3>
+<p>Deine Finanzdaten gehören dir. Es gibt keinen Entwickler-Server und kein Konto bei uns.</p>
+<ul>
+<li>Verschlüsselter SQLCipher-Tresor, Schlüssel im macOS-Schlüsselbund</li>
+<li>Händler-Logos und Favicons nur per Opt-in (#38) – ohne Zustimmung bleibt alles lokal</li>
+<li>0 Telemetrie, kein Tracking, keine Cookies</li>
+</ul>
+</div>
+<img src="/img/screenshots/analytics-or-inspector.png" alt="Inspektor mit Buchungsdetails und Händler-Logo" width="2940" height="1698" loading="lazy">
+</div>
+<div class="feature">
+<div class="text">
+<h3>Organisation &amp; Auswertungen</h3>
+<p>Ordnung in Umsätzen, Kategorien und Krediten – mit Komfort für Umsteiger.</p>
+<ul>
+<li>Notizen per Doppelklick oder Return bearbeiten (#41)</li>
+<li>Regeln und automatische Kategorisierung samt Händler-Erkennung</li>
+<li>Kreditverlauf mit Tilgungsbalken und verknüpften Raten</li>
+<li>MoneyMoney-Datenbank-Import: Konten, Kategorien und Historie, nur lesend, ohne Duplikate</li>
+</ul>
+</div>
+<img src="/img/screenshots/loan-progress.png" alt="Immobilien-Darlehen mit Tilgungsbalken, 27 % getilgt" width="2940" height="1698" loading="lazy">
+</div>
+<div class="feature flip">
+<div class="text">
+<h3>Umzug von MoneyMoney</h3>
+<p>Mehrjährige Historien, Kategorienbaum und Notizen übernimmst du direkt aus der <code>MoneyMoney.sqlite</code> oder per CSV/XML-Export – in rund 60 Sekunden.</p>
+</div>
+<img src="/img/screenshots/moneymoney-db-import.png" alt="MoneyMoney-Datenbank-Import: 6 Konten, 6.790 Buchungen" width="1800" height="1678" loading="lazy">
+</div>
+</div></section>
+<section id="technik"><div class="wrap">
+<h2>Technik &amp; Systemanforderungen</h2>
+<div class="grid">
+<div class="card"><h3>Gebaut mit Rust &amp; SwiftUI</h3><p>Der Kern <code>girocrab-core</code> in Rust (Tresor, Regeln, Bank-Konnektoren) ist per UniFFI mit der nativen SwiftUI-Oberfläche verbunden.</p></div>
+<div class="card"><h3>macOS 14 oder neuer</h3><p>Fertige Release-Builds gibt es für Apple Silicon. Für Intel-Macs lässt sich GiroCrab aus dem Quellcode bauen.</p></div>
+</div>
+</div></section>
+<section id="faq"><div class="wrap">
+<h2>Häufige Fragen</h2>
+<details><summary>Unterstützt GiroCrab meine Bank?</summary><p>Alle deutschen Banken mit Standard-FinTS/HBCI (3.0, PIN/TAN) lassen sich über BLZ und URL anbinden. Zusätzlich gibt es Anbindungen für comdirect, bunq und PayPal.</p></details>
+<details><summary>Kostet GiroCrab etwas?</summary><p>Nein. GiroCrab ist 100 % kostenlos und quelloffen (GPL-3.0-or-later), ohne Abo und ohne Werbung.</p></details>
+<details><summary>Wo liegen meine Zugangsdaten?</summary><p>Ausschließlich verschlüsselt auf deinem Mac: im SQLCipher-Tresor, dessen Schlüssel im macOS-Schlüsselbund liegt. Es gibt keinen Server, an den sie gesendet werden.</p></details>
 </div></section>
 <section id="links"><div class="wrap">
 <h2>Links</h2>

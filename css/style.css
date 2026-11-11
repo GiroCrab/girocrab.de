@@ -11,7 +11,7 @@ header .wrap{display:flex;justify-content:space-between;align-items:center;flex-
 nav a{margin-left:1.25rem;text-decoration:none;color:var(--muted)}
 nav a:hover{color:var(--fg)}
 .hero{text-align:center;padding:clamp(3rem,10vw,6rem) 0 3rem}
-.hero img{width:128px;height:128px}
+.hero .logo{width:128px;height:128px}
 h1{font-size:clamp(2.2rem,6vw,3.5rem);letter-spacing:-.02em;margin:1rem 0 .5rem;line-height:1.1}
 .tagline{font-size:clamp(1.1rem,2.5vw,1.4rem);color:var(--muted);max-width:36rem;margin:0 auto 2rem}
 .btn{display:inline-block;background:var(--accent);color:var(--accent-fg);padding:.85rem 1.8rem;border-radius:999px;font-weight:600;text-decoration:none}
@@ -33,3 +33,20 @@ footer a{color:var(--muted);margin-right:1rem}
 .legal{padding:2.5rem 0 4rem;max-width:44rem}
 .legal h1{font-size:2rem}.legal h2{font-size:1.2rem;margin:1.8rem 0 .5rem}
 .mail{unicode-bidi:bidi-override;direction:rtl;display:inline-block}
+
+.version{color:var(--muted);font-size:.9rem;margin:1rem 0 0}
+.badges li.ok{color:var(--accent);border-color:var(--accent)}
+.showcase{display:block;margin:3rem auto 0;max-width:56rem}
+.showcase img,.feature>img{display:block;width:100%;height:auto;border-radius:.75rem;box-shadow:0 0 0 1px rgba(0,0,0,.12),0 22px 50px -12px rgba(0,0,0,.35),0 8px 18px -8px rgba(0,0,0,.25)}
+@media(prefers-color-scheme:dark){.showcase img,.feature>img{box-shadow:0 0 0 1px rgba(255,255,255,.14),0 22px 50px -12px rgba(0,0,0,.8)}}
+.note{color:var(--muted);font-size:.85rem;margin:1rem 0 0}
+.feature{display:grid;gap:2rem;grid-template-columns:1fr 1.2fr;align-items:center;padding:2rem 0}
+.feature.flip .text{order:2}
+.feature h3{font-size:1.4rem;margin:0 0 .6rem}
+.feature p{color:var(--muted);margin:0 0 .8rem}
+.feature ul{margin:0;padding-left:1.2rem}.feature li{margin:.35rem 0}
+code{background:var(--card);border-radius:.3rem;padding:.1em .35em;font-size:.9em}
+@media(max-width:720px){.feature{grid-template-columns:1fr}.feature.flip .text{order:0}}
+details{background:var(--card);border-radius:.75rem;padding:1rem 1.25rem;margin:.75rem 0}
+summary{cursor:pointer;font-weight:600}
+details p{margin:.75rem 0 0;color:var(--muted)}
