@@ -213,3 +213,34 @@ header {
   line-height: 1.6;
   opacity: 0.88;
 }
+
+/* === v0.6.1: CTAs, Hell/Dunkel-Schalter, Reveal-Animationen === */
+.hero .logo{width:112px;height:112px;filter:drop-shadow(0 10px 24px rgba(0,0,0,.22))}
+.tagline{max-width:40rem}
+.tagline strong{color:var(--fg);font-weight:700}
+.cta{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin:0 0 1.1rem}
+.cta-btn{display:inline-block;border-radius:14px;line-height:0;transition:transform .2s ease,box-shadow .2s ease,filter .2s ease}
+.cta-btn img{display:block;width:260px;height:56px;max-width:100%}
+.cta-btn:hover{transform:translateY(-2px);box-shadow:0 12px 28px -8px rgba(0,113,227,.55);filter:brightness(1.06)}
+.cta-btn:active{transform:translateY(0)}
+.showcase-wrap{position:relative;margin-top:3rem}
+.mode-radio{position:absolute;opacity:0;pointer-events:none}
+.mode-switch{display:inline-flex;gap:2px;padding:3px;border-radius:999px;background:var(--card);border:1px solid var(--line);margin-bottom:1.25rem}
+.mode-switch label{cursor:pointer;padding:.35rem .95rem;border-radius:999px;font-size:.9rem;font-weight:600;color:var(--muted);transition:background .2s,color .2s}
+.mode-switch label:hover{color:var(--fg)}
+.showcase-wrap .showcase{margin:0 auto;position:relative}
+.showcase-wrap .showcase img{border-radius:0;box-shadow:none;transition:opacity .45s ease}
+.shot-dark{position:absolute;inset:0;opacity:0}
+@media(prefers-color-scheme:dark){.shot-light{opacity:0}.shot-dark{opacity:1}}
+#m-light:checked ~ .showcase .shot-light{opacity:1}
+#m-light:checked ~ .showcase .shot-dark{opacity:0}
+#m-dark:checked ~ .showcase .shot-light{opacity:0}
+#m-dark:checked ~ .showcase .shot-dark{opacity:1}
+#m-light:checked ~ .mode-switch label[for=m-light],#m-dark:checked ~ .mode-switch label[for=m-dark]{background:var(--fg);color:var(--bg)}
+.mode-radio:focus-visible ~ .mode-switch{outline:3px solid var(--accent);outline-offset:3px}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.reveal{animation:rise .7s cubic-bezier(.2,.7,.2,1) both}
+.d1{animation-delay:.06s}.d2{animation-delay:.12s}.d3{animation-delay:.2s}.d4{animation-delay:.3s}
+#neu .card{transition:transform .2s ease,box-shadow .2s ease}
+#neu .card:hover{transform:translateY(-3px);box-shadow:0 14px 30px -10px rgba(0,0,0,.2)}
+@media(prefers-reduced-motion:reduce){.reveal{animation:none}.cta-btn,#neu .card,.showcase-wrap .showcase img{transition:none}.cta-btn:hover,#neu .card:hover{transform:none}}

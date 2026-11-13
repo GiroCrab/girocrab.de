@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="referrer" content="no-referrer">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'">
-<title>GiroCrab – Kostenlose MoneyMoney-Alternative &amp; FinTS Online-Banking für macOS</title>
-<meta name="description" content="GiroCrab ist die freie, native macOS Online-Banking-App ohne Abo: Direktes FinTS/HBCI, MoneyMoney-Import (SQLite/XML/CSV), Trade Republic &amp; Scalable Capital, 100 % lokal verschlüsselt (Open Source).">
+<title>GiroCrab – Freie Banking-App für Mac, iPhone &amp; iPad (MoneyMoney-Alternative)</title>
+<meta name="description" content="GiroCrab v0.6.1 ist die freie, native Banking-App für Mac, iPhone &amp; iPad ohne Abo: Direktes FinTS/HBCI, MoneyMoney-Import (SQLite/XML/CSV), Trade Republic &amp; Scalable Capital, 100 % lokal verschlüsselt (Open Source).">
 <meta name="keywords" content="GiroCrab, Online-Banking macOS, MoneyMoney Alternative, Banking App Mac ohne Abo, FinTS HBCI Mac, Open Source Banking macOS, Scalable Capital Mac, Trade Republic Mac, SEPA Überweisung Mac">
 <meta name="robots" content="index, follow">
 <meta name="color-scheme" content="light dark">
@@ -14,14 +14,19 @@
 <meta property="og:type" content="website">
 <meta property="og:locale" content="de_DE">
 <meta property="og:site_name" content="GiroCrab">
-<meta property="og:title" content="GiroCrab – Natives, datensparsames Online-Banking für macOS (ohne Abo)">
+<meta property="og:title" content="GiroCrab – Die freie, native Banking-App für Mac, iPhone &amp; iPad">
 <meta property="og:description" content="Freie Open-Source-Alternative für den Mac: FinTS/HBCI, direkter MoneyMoney-Datenbank-Import, Scalable Capital &amp; Trade Republic. 100 % lokal verschlüsselt.">
 <meta property="og:url" content="https://girocrab.de/">
 <meta property="og:image" content="https://girocrab.de/img/screenshots/overview.png">
+<meta property="og:image:alt" content="GiroCrab Übersicht mit Konten, Salden und Buchungen">
+<meta property="og:image:width" content="2200">
+<meta property="og:image:height" content="1314">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="GiroCrab – Natives Online-Banking für macOS ohne Abo">
+<meta name="twitter:title" content="GiroCrab – Freie Banking-App für Mac, iPhone &amp; iPad">
 <meta name="twitter:description" content="100 % lokal, FinTS 3.0, direkter MoneyMoney-Import, Rust + SwiftUI.">
 <meta name="twitter:image" content="https://girocrab.de/img/screenshots/overview.png">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
 <link rel="icon" type="image/png" href="img/favicon.png">
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
 <link rel="stylesheet" href="css/style.css">
@@ -32,13 +37,15 @@
     {
       "@type": "SoftwareApplication",
       "name": "GiroCrab",
-      "operatingSystem": "macOS 14+",
+      "operatingSystem": "macOS 14+, iOS 17+, iPadOS 17+",
       "applicationCategory": "FinanceApplication",
-      "softwareVersion": "0.5.1",
+      "softwareVersion": "0.6.1",
       "license": "https://www.gnu.org/licenses/gpl-3.0.html",
       "url": "https://girocrab.de/",
-      "downloadUrl": "https://github.com/GiroCrab/GiroCrab/releases/latest",
-      "description": "Natives, datensparsames Open-Source-Online-Banking für macOS mit FinTS/HBCI, MoneyMoney-Import sowie Unterstützung für comdirect, Scalable Capital, Trade Republic, bunq und PayPal.",
+      "downloadUrl": "https://github.com/GiroCrab/GiroCrab/releases/latest/download/GiroCrab-macOS-arm64.dmg",
+      "installUrl": "https://testflight.apple.com/join/KBmvKVpT",
+      "image": "https://girocrab.de/img/app-icon.png",
+      "description": "Native, datensparsame Open-Source-Banking-App für Mac, iPhone und iPad mit FinTS/HBCI, MoneyMoney-Import sowie Unterstützung für comdirect, Scalable Capital, Trade Republic, bunq und PayPal.",
       "offers": {
         "@type": "Offer",
         "price": "0.00",
@@ -88,22 +95,36 @@
 </head>
 <body>
 <header><div class="wrap"><a class="brand" href="/">GiroCrab</a>
-<nav><a href="#features">Features</a><a href="#community">Community</a><a href="#faq">FAQ</a><a href="#links">Links</a></nav></div></header>
+<nav><a href="#neu">Neu</a><a href="#features">Features</a><a href="#community">Community</a><a href="#faq">FAQ</a><a href="#links">Links</a></nav></div></header>
 <main>
 <section class="hero"><div class="wrap">
-<img class="logo" src="img/logo.svg" alt="GiroCrab-Logo" width="128" height="128">
-<h1>GiroCrab</h1>
-<p class="tagline">Natives, datensparsames Online-Banking für macOS – lokal, verschlüsselt, ohne Abo und ohne Cloud-Zwang.</p>
-<a class="btn" href="https://github.com/GiroCrab/GiroCrab/releases/latest">Download für macOS</a>
-<p class="version">Aktuelle Version v0.5.1 · macOS 14+ · Apple Silicon</p>
-<ul class="badges">
-<li class="ok">✓ Von Apple notarisiert</li><li>100 % lokal</li><li>Open Source (Rust + SwiftUI)</li><li>Direktes FinTS ohne Mittelsmann</li><li>Direkter MoneyMoney-Import</li>
-</ul>
-<picture class="showcase">
-<source media="(prefers-color-scheme: dark)" srcset="img/screenshots/overview-dark.png">
-<img src="img/screenshots/overview.png" alt="GiroCrab Online-Banking für macOS – Übersicht mit Konten und Kategorien" width="2940" height="1698" fetchpriority="high">
-</picture>
+<img class="logo reveal" src="img/app-icon.png" alt="GiroCrab-App-Icon" width="112" height="112">
+<h1 class="reveal d1">GiroCrab</h1>
+<p class="tagline reveal d2"><strong>Die freie, native Banking-App für Mac, iPhone &amp; iPad.</strong><br>FinTS 3.0 · PSD2 · SEPA · MoneyMoney-Import — 100&nbsp;% lokal verschlüsselt, ohne Abo, ohne Cloud-Zwang.</p>
+<div class="cta reveal d3">
+<a class="cta-btn" href="https://github.com/GiroCrab/GiroCrab/releases/latest/download/GiroCrab-macOS-arm64.dmg"><img src="img/download-macos.svg" alt="Für macOS laden – v0.6.1 · Apple Silicon (.dmg)" width="260" height="56"></a>
+<a class="cta-btn" href="https://testflight.apple.com/join/KBmvKVpT"><img src="img/download-ios.svg" alt="iOS &amp; iPadOS App – kostenlos via Apple TestFlight" width="260" height="56"></a>
+</div>
+<p class="version reveal d3">✓ Offiziell von Apple notarisiert · ✓ Automatische Updates · ✓ Version v0.6.1 · macOS 14+ / iOS 17+</p>
+<div class="showcase-wrap reveal d4">
+<input type="radio" name="mode" id="m-light" class="mode-radio" aria-label="Hellmodus">
+<input type="radio" name="mode" id="m-dark" class="mode-radio" aria-label="Dunkelmodus">
+<div class="mode-switch" role="group" aria-label="Darstellung der Vorschau"><label for="m-light">☀︎ Hell</label><label for="m-dark">☾ Dunkel</label></div>
+<div class="showcase">
+<img class="shot-light" src="img/screenshots/overview.png" alt="GiroCrab Banking-App für macOS – Übersicht mit Konten und Kategorien (Hellmodus)" width="2200" height="1314" fetchpriority="high">
+<img class="shot-dark" src="img/screenshots/overview-dark.png" alt="GiroCrab Banking-App für macOS – Übersicht mit Konten und Kategorien (Dunkelmodus)" width="2200" height="1314">
+</div>
+</div>
 <p class="note">Alle Screenshots zeigen ausschließlich erfundene Demo-Daten.</p>
+</div></section>
+<section id="neu"><div class="wrap">
+<h2>Neu in v0.6.1</h2>
+<div class="grid">
+<div class="card"><h3>📲 iPhone &amp; iPad via TestFlight</h3><p>Die iOS-App installierst und aktualisierst du jetzt direkt per Apple-TestFlight-Einladung – kostenlos, ohne Xcode.</p></div>
+<div class="card"><h3>⚡ Kategorisieren in &lt; 1 ms</h3><p>Optimistische Updates und neue Indizes halten selbst Tresore mit über 30.000 Buchungen flüssig.</p></div>
+<div class="card"><h3>🧙 Neue Assistenten</h3><p>„Bank hinzufügen“ und der MoneyMoney-Import mit Salden-Abgleich folgen den Apple-Richtlinien.</p></div>
+<div class="card"><h3>🏦 Mehr Banken &amp; Währungen</h3><p>Enable Banking (PSD2), Multi-Währungs-Konten sowie Vormerkungen bei comdirect und bunq.</p></div>
+</div>
 </div></section>
 <section id="features"><div class="wrap">
 <h2>Features</h2>
@@ -227,6 +248,7 @@
 <section id="links"><div class="wrap">
 <h2>Links</h2>
 <div class="links">
+<a href="https://testflight.apple.com/join/KBmvKVpT">TestFlight (iOS &amp; iPadOS)</a>
 <a href="https://github.com/GiroCrab/GiroCrab">GitHub-Repository</a>
 <a href="https://github.com/GiroCrab/GiroCrab/releases">Releases</a>
 <a href="https://github.com/GiroCrab/GiroCrab/blob/main/CONTRIBUTING.md">Contributing</a>
@@ -236,6 +258,6 @@
 <footer><div class="wrap">
 <div><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a></div>
 <div>Keine Cookies · kein Tracking · keine externen Ressourcen</div>
-</div></cite>
+</div></footer>
 </body>
 </html>
