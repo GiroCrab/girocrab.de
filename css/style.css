@@ -244,3 +244,6 @@ header {
 #neu .card{transition:transform .2s ease,box-shadow .2s ease}
 #neu .card:hover{transform:translateY(-3px);box-shadow:0 14px 30px -10px rgba(0,0,0,.2)}
 @media(prefers-reduced-motion:reduce){.reveal{animation:none}.cta-btn,#neu .card,.showcase-wrap .showcase img{transition:none}.cta-btn:hover,#neu .card:hover{transform:none}}
+#unterstuetzen .support{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:2rem;text-align:center}
+#unterstuetzen .support p{max-width:46rem;margin:.8rem auto}
+#unterstuetzen .support .muted{color:var(--muted);font-size:.92rem}
