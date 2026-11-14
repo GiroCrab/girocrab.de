@@ -95,25 +95,27 @@
 </script>
 </head>
 <body>
+<input type="radio" name="mode" id="m-light" class="mode-radio" aria-label="Hellmodus">
+<input type="radio" name="mode" id="m-dark" class="mode-radio" aria-label="Dunkelmodus">
 <header><div class="wrap"><a class="brand" href="/">GiroCrab</a>
-<nav><a href="#neu">Neu</a><a href="#features">Features</a><a href="#community">Community</a><a href="#faq">FAQ</a><a href="#links">Links</a></nav></div></header>
+<nav><a href="#neu">Neu</a><a href="#features">Features</a><a href="#banken">Banken</a><a href="#community">Community</a><a href="#faq">FAQ</a><a href="#links">Links</a><a class="gh" href="https://github.com/GiroCrab/GiroCrab" rel="noopener">GitHub<span class="gh-badge">Open Source · GPL-3.0</span></a></nav>
+<div class="mode-switch" role="group" aria-label="Darstellung der Vorschau"><label for="m-light">☀︎ Hell</label><label for="m-dark">☾ Dunkel</label></div></div></header>
 <main>
 <section class="hero"><div class="wrap">
 <img class="logo reveal" src="img/app-icon.png" alt="GiroCrab-App-Icon" width="112" height="112">
 <h1 class="reveal d1">GiroCrab</h1>
 <p class="tagline reveal d2"><strong>Die freie, native Banking-App für Mac, iPhone &amp; iPad.</strong><br>FinTS 3.0 · PSD2 · SEPA · MoneyMoney-Import — 100&nbsp;% lokal verschlüsselt, ohne Abo, ohne Cloud-Zwang.</p>
 <div class="cta reveal d3">
-<a class="cta-btn" href="https://github.com/GiroCrab/GiroCrab/releases/latest/download/GiroCrab-macOS-arm64.dmg"><img src="img/download-macos.svg" alt="Für macOS laden – v0.6.1 · Apple Silicon (.dmg)" width="260" height="56"></a>
+<div class="cta-col"><a class="cta-btn" href="https://github.com/GiroCrab/GiroCrab/releases/latest/download/GiroCrab-macOS-arm64.dmg"><img src="img/download-macos.svg" alt="Für macOS laden – v0.6.1 · Apple Silicon (.dmg)" width="260" height="56"></a>
+<p class="brew">oder per Homebrew: <code title="Klicken zum Markieren, dann kopieren">brew install --cask GiroCrab/GiroCrab/girocrab</code></p></div>
 <a class="cta-btn" href="https://testflight.apple.com/join/KBmvKVpT"><img src="img/download-ios.svg" alt="iOS &amp; iPadOS App – kostenlos via Apple TestFlight" width="260" height="56"></a>
 </div>
 <p class="version reveal d3">✓ Offiziell von Apple notarisiert · ✓ Automatische Updates · ✓ Version v0.6.1 · macOS 14+ / iOS 17+</p>
 <div class="showcase-wrap reveal d4">
-<input type="radio" name="mode" id="m-light" class="mode-radio" aria-label="Hellmodus">
-<input type="radio" name="mode" id="m-dark" class="mode-radio" aria-label="Dunkelmodus">
-<div class="mode-switch" role="group" aria-label="Darstellung der Vorschau"><label for="m-light">☀︎ Hell</label><label for="m-dark">☾ Dunkel</label></div>
 <div class="showcase">
 <img class="shot-light" src="img/screenshots/overview.png" alt="GiroCrab Banking-App für macOS – Übersicht mit Konten und Kategorien (Hellmodus)" width="2200" height="1314" fetchpriority="high">
 <img class="shot-dark" src="img/screenshots/overview-dark.png" alt="GiroCrab Banking-App für macOS – Übersicht mit Konten und Kategorien (Dunkelmodus)" width="2200" height="1314">
+<img class="phone" src="img/screenshots/ios-overview.png" alt="GiroCrab auf dem iPhone – Übersicht mit Demo-Daten" width="552" height="1200">
 </div>
 </div>
 <p class="note">Alle Screenshots zeigen ausschließlich erfundene Demo-Daten.</p>
@@ -241,7 +243,7 @@
 </div></section>
 <section id="faq"><div class="wrap">
 <h2>Häufige Fragen</h2>
-<details><summary>Unterstützt GiroCrab meine Bank?</summary><p>Alle deutschen Banken mit Standard-FinTS/HBCI (3.0, PIN/TAN) – darunter Sparkassen, Volks- und Raiffeisenbanken, ING, DKB oder Sparda-Banken – lassen sich über BLZ und FinTS-URL anbinden. <!-- sync:connectors:start --><!-- sync:connectors:end --></p></details>
+<details><summary id="banken">Unterstützt GiroCrab meine Bank?</summary><p>Alle deutschen Banken mit Standard-FinTS/HBCI (3.0, PIN/TAN) – darunter Sparkassen, Volks- und Raiffeisenbanken, ING, DKB oder Sparda-Banken – lassen sich über BLZ und FinTS-URL anbinden. <!-- sync:connectors:start --><!-- sync:connectors:end --></p></details>
 <details><summary>Wie funktioniert der Umstieg von MoneyMoney?</summary><p>GiroCrab kann deine bestehende <code>MoneyMoney.sqlite</code>-Datenbank direkt (streng lesend) öffnen oder XML-/CSV-Exporte einlesen. Konten, Kategorienhierarchien, Notizen und deine gesamte Buchungshistorie werden samt Dubletten-Prüfung übernommen.</p></details>
 <details><summary>Kostet GiroCrab etwas?</summary><p>Nein. GiroCrab ist 100 % kostenlos und quelloffen (GPL-3.0-or-later), ohne Abo und ohne Werbung.</p></details>
 <details><summary>Wo liegen meine Zugangsdaten?</summary><p>Ausschließlich verschlüsselt auf deinem Mac: im SQLCipher-Tresor, dessen Schlüssel im macOS-Schlüsselbund liegt. Es gibt keinen Server, an den sie gesendet werden.</p></details>
