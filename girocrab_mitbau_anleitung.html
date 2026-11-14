@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="de" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GiroCrab – In 4 Schritten zum eigenen Pull Request mit Claude Code</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #12161F;
+      --card-dark: #1E2430;
+      --crab-primary: #FA5B22;
+      --crab-secondary: #FF7A45;
+      --emerald-ok: #10B981;
+      --gold-ai: #F59E0B;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      background-image:
+        radial-gradient(circle at 18% 12%, rgba(250, 91, 34, 0.10) 0%, transparent 40%),
+        radial-gradient(circle at 82% 18%, rgba(245, 158, 11, 0.10) 0%, transparent 42%),
+        radial-gradient(circle at 50% 85%, rgba(16, 185, 129, 0.07) 0%, transparent 45%);
+      color: #f8fafc;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      overflow-x: hidden;
+    }
+
+    .font-mono-code {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Subtle grid background */
+    .bg-grid-pattern {
+      background-image:
+        linear-gradient(to right, rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+
+    /* Mascot idle float & claw wave */
+    @keyframes float-crab {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-8px) rotate(1.5deg); }
+    }
+    @keyframes wave-claw-l {
+      0%, 100% { transform: rotate(0deg); }
+      50% { transform: rotate(-10deg); }
+    }
+    @keyframes wave-claw-r {
+      0%, 100% { transform: rotate(0deg); }
+      50% { transform: rotate(10deg); }
+    }
+
+    .crab-float {
+      animation: float-crab 3.6s ease-in-out infinite;
+      transform-origin: 256px 280px;
+    }
+    .claw-l-anim {
+      animation: wave-claw-l 2.8s ease-in-out infinite;
+      transform-origin: 185px 255px;
+    }
+    .claw-r-anim {
+      animation: wave-claw-r 2.8s ease-in-out infinite;
+      transform-origin: 335px 255px;
+    }
+
+    /* Step Card Active States */
+    .step-card {
+      background: rgba(30, 36, 48, 0.78);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .step-card:hover {
+      border-color: rgba(255, 255, 255, 0.18);
+    }
+    .step-card.active-step {
+      background: rgba(30, 36, 48, 0.98);
+      border-color: rgba(250, 91, 34, 0.65);
+      box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(250, 91, 34, 0.35), 0 0 35px -10px rgba(250, 91, 34, 0.25);
+    }
+
+    /* Blinking cursor */
+    @keyframes blink {
+      0%, 49% { opacity: 1; }
+      50%, 100% { opacity: 0; }
+    }
+    .cursor-blink {
+      animation: blink 1s infinite;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0f131b;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #2d3748;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #4a5568;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-grid-pattern selection:bg-orange-500 selection:text-white">
+
+  <!-- Toast Notification for Copy Actions -->
+  <div id="copy-toast" class="fixed bottom-6 right-6 z-50 pointer-events-none opacity-0 translate-y-4 transition-all duration-300 bg-emerald-500 text-slate-950 font-bold px-4 py-2.5 rounded-xl shadow-[0_10px_30px_rgba(16,185,129,0.45)] flex items-center gap-2 text-sm">
+    <span>✓</span>
+    <span id="copy-toast-text">In die Zwischenablage kopiert!</span>
+  </div>
+
+  <!-- Top Navigation Bar -->
+  <header class="sticky top-0 z-40 backdrop-blur-xl bg-[#12161F]/85 border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      <a href="https://github.com/GiroCrab/GiroCrab" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 flex items-center justify-center">
+          <!-- Mini Free-Floating GiroCrab Icon (No rectangle border) -->
+          <svg viewBox="0 0 512 512" class="w-10 h-10 group-hover:scale-110 transition-transform">
+            <g fill="#b82d0d">
+              <polygon points="150,285 95,355 112,380 172,308"/>
+              <polygon points="168,305 118,378 136,396 190,322" fill="#c93310"/>
+              <polygon points="362,285 417,355 400,380 340,308"/>
+              <polygon points="344,305 394,378 376,396 322,322" fill="#c93310"/>
+            </g>
+            <path d="M112,188 C112,155 152,148 166,178 L152,196 L172,186 C176,216 135,232 112,188 Z" fill="#FA5B22"/>
+            <circle cx="366" cy="156" r="42" fill="#F59E0B"/>
+            <path d="M388,142 C418,168 412,216 372,222 C342,226 328,198 345,175 L366,192 L388,142 Z" fill="#FA5B22"/>
+            <polygon points="136,275 195,218 317,218 376,275 310,366 202,366" fill="#FA5B22"/>
+            <circle cx="220" cy="192" r="22" fill="#ffffff"/>
+            <circle cx="220" cy="192" r="10" fill="#1e293b"/>
+            <circle cx="292" cy="192" r="22" fill="#ffffff"/>
+            <circle cx="292" cy="192" r="10" fill="#1e293b"/>
+          </svg>
+        </div>
+        <div>
+          <span class="font-extrabold text-white tracking-tight text-base sm:text-lg">GiroCrab</span>
+          <span class="hidden sm:inline-block ml-2 text-xs px-2.5 py-0.5 rounded-full bg-orange-500/15 text-orange-300 border border-orange-500/30 font-semibold">
+            Community &amp; KI-Onboarding
+          </span>
+        </div>
+      </a>
+
+      <div class="flex items-center gap-2.5">
+        <button id="btn-autoplay" class="px-3.5 py-1.5 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-400/40 text-amber-300 text-xs font-bold transition flex items-center gap-1.5">
+          <span id="autoplay-icon">▶</span>
+          <span id="autoplay-label">Auto-Demo abspielen</span>
+        </button>
+        <button id="btn-copy-md-top" class="px-3.5 py-1.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-extrabold transition flex items-center gap-1.5 shadow-lg shadow-emerald-500/20">
+          <span>📋</span>
+          <span class="hidden sm:inline">Als GitHub-Markdown kopieren</span>
+          <span class="sm:hidden">Markdown</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+
+    <!-- =================================================================== -->
+    <!-- 1. HERO SECTION                                                     -->
+    <!-- =================================================================== -->
+    <section class="relative rounded-3xl bg-[#1E2430]/90 border border-white/10 p-6 sm:p-10 mb-10 overflow-hidden shadow-2xl">
+      <!-- Ambient Glows -->
+      <div class="absolute -top-24 -right-24 w-80 h-80 bg-orange-500/15 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -bottom-24 -left-24 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+        <!-- Left Column: Title, Explanation & Mode Switcher -->
+        <div class="lg:col-span-8 space-y-5">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/15 border border-amber-400/30 text-amber-300 text-xs font-bold tracking-wide uppercase">
+            <span>✨ Mach dein KI-Abo produktiv · Für Anwender &amp; Einsteiger</span>
+          </div>
+
+          <h1 class="text-2xl sm:text-4xl lg:text-[2.65rem] font-black tracking-tight text-white leading-[1.15]">
+            In 4 Schritten zum eigenen Pull Request mit <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-orange-400 to-emerald-400">Claude Code</span> – ohne Programmierkenntnisse
+          </h1>
+
+          <p class="text-slate-300 text-sm sm:text-base leading-relaxed max-w-3xl">
+            Du nutzt GiroCrab, hast einen Fehler entdeckt oder wünschst dir ein Feature, kannst aber weder <code class="font-mono-code text-orange-300 bg-black/30 px-1.5 py-0.5 rounded">Swift</code> noch <code class="font-mono-code text-orange-300 bg-black/30 px-1.5 py-0.5 rounded">Rust</code>?
+            <strong>Kein Problem!</strong> Im GiroCrab-Repository liegt eine fertige <code class="font-mono-code text-emerald-300 bg-emerald-500/10 border border-emerald-500/30 px-1.5 py-0.5 rounded">CLAUDE.md</code>-Bauanleitung. Sobald du Claude Code öffnest, liest die KI diese Datei automatisch und kennt sofort unsere gesamte Architektur, den sicheren Demo-Modus und alle Prüfskripte.
+          </p>
+
+          <!-- Mode Switcher: Desktop App vs. Terminal CLI -->
+          <div class="pt-2 flex flex-col sm:flex-row sm:items-center gap-3">
+            <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Dein bevorzugter Weg:</span>
+            <div class="inline-flex p-1 rounded-2xl bg-[#12161F] border border-white/10 self-start">
+              <button id="mode-btn-gui" class="px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 bg-gradient-to-r from-orange-500 to-amber-500 text-slate-950 shadow">
+                <span>🖥️ Claude Desktop App / Cursor (Ohne Terminal)</span>
+              </button>
+              <button id="mode-btn-cli" class="px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 text-slate-300 hover:text-white">
+                <span>⌨️ macOS Terminal (CLI)</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Free-Floating GiroCrab Mascot (NO background rectangle!) -->
+        <div class="lg:col-span-4 flex flex-col items-center justify-center relative">
+          <div class="relative w-52 h-52 sm:w-60 sm:h-60 flex items-center justify-center">
+            <!-- Soft radial glow behind crab -->
+            <div class="absolute inset-4 rounded-full bg-gradient-to-tr from-orange-500/25 via-amber-400/20 to-emerald-400/15 blur-2xl"></div>
+
+            <!-- Floating Badge -->
+            <div class="absolute -top-3 right-0 z-20 bg-slate-900/95 border border-emerald-400/40 px-3 py-1 rounded-full text-[11px] font-mono-code font-bold text-emerald-300 shadow-xl flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+              <span>CLAUDE.md aktiv</span>
+            </div>
+
+            <!-- GIROCRAB SVG MASCOT (NO SQUIRCLE BORDER) -->
+            <svg viewBox="0 0 512 512" class="w-full h-full drop-shadow-[0_24px_30px_rgba(0,0,0,0.65)]">
+              <defs>
+                <linearGradient id="hero-card" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#e2e8f0"/>
+                  <stop offset="50%" stop-color="#ffffff"/>
+                  <stop offset="100%" stop-color="#94a3b8"/>
+                </linearGradient>
+                <linearGradient id="hero-stripe" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stop-color="#0f172a"/>
+                  <stop offset="50%" stop-color="#475569"/>
+                  <stop offset="100%" stop-color="#0f172a"/>
+                </linearGradient>
+                <linearGradient id="hero-coin" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#fde047"/>
+                  <stop offset="100%" stop-color="#eab308"/>
+                </linearGradient>
+              </defs>
+
+              <!-- Subtle Floor Shadow -->
+              <ellipse cx="256" cy="412" rx="130" ry="14" fill="#090d14" opacity="0.6"/>
+
+              <g class="crab-float">
+                <!-- Left Legs -->
+                <g fill="#b82d0d">
+                  <polygon points="150,285 95,355 112,380 172,308"/>
+                  <polygon points="168,305 118,378 136,396 190,322" fill="#c93310"/>
+                  <polygon points="190,320 148,392 168,402 208,335" fill="#a32609"/>
+                </g>
+                <!-- Right Legs -->
+                <g fill="#b82d0d">
+                  <polygon points="362,285 417,355 400,380 340,308"/>
+                  <polygon points="344,305 394,378 376,396 322,322" fill="#c93310"/>
+                  <polygon points="322,320 364,392 344,402 304,335" fill="#a32609"/>
+                </g>
+
+                <!-- Left Claw + Credit Card -->
+                <g class="claw-l-anim">
+                  <g transform="translate(65, 92) rotate(-28)">
+                    <rect x="0" y="0" width="146" height="94" rx="12" fill="url(#hero-card)" stroke="#475569" stroke-width="2"/>
+                    <rect x="0" y="18" width="146" height="20" fill="url(#hero-stripe)"/>
+                    <rect x="16" y="54" width="52" height="7" rx="3.5" fill="#64748b"/>
+                    <rect x="16" y="67" width="38" height="7" rx="3.5" fill="#94a3b8"/>
+                    <circle cx="106" cy="64" r="12" fill="#64748b" opacity="0.85"/>
+                    <circle cx="120" cy="64" r="12" fill="#94a3b8" opacity="0.85"/>
+                  </g>
+                  <polygon points="182,255 148,225 164,208 196,242" fill="#b82d0d"/>
+                  <path d="M112,188 C112,155 152,148 166,178 L152,196 L172,186 C176,216 135,232 112,188 Z" fill="#FA5B22"/>
+                </g>
+
+                <!-- Right Claw + Gold Coin -->
+                <g class="claw-r-anim">
+                  <polygon points="330,255 364,225 348,208 316,242" fill="#b82d0d"/>
+                  <g transform="translate(318, 108) rotate(-15)">
+                    <circle cx="48" cy="48" r="46" fill="url(#hero-coin)" stroke="#ca8a04" stroke-width="4"/>
+                    <circle cx="48" cy="48" r="35" fill="#eab308" opacity="0.65"/>
+                    <rect x="41" y="23" width="14" height="50" rx="5" fill="#fde047"/>
+                  </g>
+                  <path d="M388,142 C418,168 412,216 372,222 C342,226 328,198 345,175 L366,192 L388,142 Z" fill="#FA5B22"/>
+                </g>
+
+                <!-- Low-Poly Carapace -->
+                <polygon points="136,275 195,218 256,218 256,275" fill="#FF7A45"/>
+                <polygon points="376,275 317,218 256,218 256,275" fill="#FA5B22"/>
+                <polygon points="136,275 256,275 202,366 168,340" fill="#e03e1a"/>
+                <polygon points="376,275 256,275 310,366 344,340" fill="#c93310"/>
+                <polygon points="202,366 310,366 256,275" fill="#d93b16"/>
+                <ellipse cx="195" cy="242" rx="10" ry="5" transform="rotate(-22 195 242)" fill="#ff9e7a" opacity="0.75"/>
+
+                <!-- Eyes -->
+                <rect x="214" y="206" width="12" height="18" fill="#c93310"/>
+                <rect x="286" y="206" width="12" height="18" fill="#c93310"/>
+                <circle cx="220" cy="192" r="24" fill="#FA5B22"/>
+                <circle cx="220" cy="192" r="17" fill="#ffffff"/>
+                <circle cx="220" cy="192" r="10" fill="#1e293b"/>
+                <circle cx="216" cy="188" r="3.5" fill="#ffffff"/>
+                <circle cx="292" cy="192" r="24" fill="#FA5B22"/>
+                <circle cx="292" cy="192" r="17" fill="#ffffff"/>
+                <circle cx="292" cy="192" r="10" fill="#1e293b"/>
+                <circle cx="288" cy="188" r="3.5" fill="#ffffff"/>
+
+                <!-- Brows -->
+                <path d="M196,162 Q220,146 240,160" fill="none" stroke="#FA5B22" stroke-width="7" stroke-linecap="round"/>
+                <path d="M272,160 Q292,146 316,162" fill="none" stroke="#FA5B22" stroke-width="7" stroke-linecap="round"/>
+
+                <!-- Happy Smile -->
+                <path d="M222,294 L290,294 C290,338 222,338 222,294 Z" fill="#541608"/>
+                <ellipse cx="256" cy="322" rx="22" ry="10" fill="#FF7A45"/>
+              </g>
+            </svg>
+          </div>
+          <p class="text-xs text-slate-400 text-center max-w-xs">
+            Klicke links auf die <strong>4 Schritte</strong>, um die Live-Simulation rechts in Echtzeit zu sehen!
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- 2. INTERACTIVE 4-STEP GUIDE + LIVE SIMULATOR                        -->
+    <!-- =================================================================== -->
+    <section class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+      <!-- LEFT COLUMN: THE 4 STEPS (7 Cols) -->
+      <div class="lg:col-span-7 space-y-5">
+
+        <!-- STEP 1 -->
+        <div id="step-card-1" data-step="1" class="step-card active-step rounded-2xl p-6 cursor-pointer">
+          <div class="flex items-start justify-between gap-4">
+            <div class="flex items-center gap-3.5">
+              <div class="w-10 h-10 rounded-xl bg-orange-500 text-slate-950 font-black text-lg flex items-center justify-center shrink-0 shadow-lg shadow-orange-500/30">
+                1
+              </div>
+              <div>
+                <span class="text-[11px] font-bold uppercase tracking-wider text-orange-400">Schritt 1 · ~30 Sekunden</span>
+                <h2 class="text-lg sm:text-xl font-extrabold text-white">GiroCrab-Adresse öffnen &amp; Claude Code starten</h2>
+              </div>
+            </div>
+            <span class="text-xs px-2.5 py-1 rounded-full bg-white/5 text-slate-300 border border-white/10 shrink-0">Einmalig</span>
+          </div>
+
+          <!-- Dynamic Content based on GUI vs CLI Mode -->
+          <div class="mt-4 space-y-3 text-sm text-slate-300 leading-relaxed">
+            <!-- GUI explanation -->
+            <div class="mode-gui-block space-y-2.5">
+              <p>
+                Öffne die <strong>Claude Desktop App</strong> (Reiter <em>„Code“</em>) oder <strong>Cursor</strong>, klicke auf <strong>„Repository klonen / Projekt öffnen“</strong> und füge einfach die GiroCrab-Adresse ein:
+              </p>
+              <div class="flex items-center justify-between gap-2 bg-[#12161F] border border-white/15 rounded-xl px-3.5 py-2.5 font-mono-code text-xs sm:text-sm text-amber-300">
+                <span class="truncate">https://github.com/GiroCrab/GiroCrab.git</span>
+                <button data-copy="https://github.com/GiroCrab/GiroCrab.git" class="px-3 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-white text-xs font-sans font-bold shrink-0 transition">
+                  📋 URL kopieren
+                </button>
+              </div>
+            </div>
+
+            <!-- CLI explanation -->
+            <div class="mode-cli-block hidden space-y-2.5">
+              <p>
+                Öffne das <strong>macOS Terminal</strong> (<kbd class="px-1.5 py-0.5 rounded bg-slate-800 border border-white/15 text-xs">⌘ Leertaste</kbd> → <em>Terminal</em>). Mit diesem Einzeiler erstellst du eine eigene Kopie (Fork), lädst sie herunter und startest direkt <code class="font-mono-code text-amber-300">claude</code>:
+              </p>
+              <div class="flex items-center justify-between gap-2 bg-[#12161F] border border-white/15 rounded-xl px-3.5 py-2.5 font-mono-code text-xs text-amber-300">
+                <span class="truncate">gh repo fork GiroCrab/GiroCrab --clone &amp;&amp; cd GiroCrab &amp;&amp; claude</span>
+                <button data-copy="gh repo fork GiroCrab/GiroCrab --clone && cd GiroCrab && claude" class="px-3 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-white text-xs font-sans font-bold shrink-0 transition">
+                  📋 Kopieren
+                </button>
+              </div>
+              <div class="flex items-center justify-between gap-2 bg-[#12161F]/70 border border-white/10 rounded-xl px-3.5 py-2 font-mono-code text-[11px] text-slate-400">
+                <span class="truncate">Alternativ: git clone https://github.com/GiroCrab/GiroCrab.git &amp;&amp; cd GiroCrab &amp;&amp; claude</span>
+                <button data-copy="git clone https://github.com/GiroCrab/GiroCrab.git && cd GiroCrab && claude" class="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/15 text-slate-200 text-[11px] font-sans font-semibold shrink-0 transition">
+                  Kopieren
+                </button>
+              </div>
+            </div>
+
+            <div class="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/25 text-xs text-emerald-200 flex items-center gap-2.5">
+              <span class="text-base">🧠</span>
+              <span><strong>Das Beste daran:</strong> Claude liest beim Start automatisch unsere <code class="font-mono-code font-bold">CLAUDE.md</code> im Hauptordner und weiß sofort, wie GiroCrab gebaut und getestet wird.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 2 (WITH INTERACTIVE PROMPT BUILDER) -->
+        <div id="step-card-2" data-step="2" class="step-card rounded-2xl p-6 cursor-pointer">
+          <div class="flex items-start justify-between gap-4">
+            <div class="flex items-center gap-3.5">
+              <div class="w-10 h-10 rounded-xl bg-amber-500 text-slate-950 font-black text-lg flex items-center justify-center shrink-0 shadow-lg shadow-amber-500/30">
+                2
+              </div>
+              <div>
+                <span class="text-[11px] font-bold uppercase tracking-wider text-amber-400">Schritt 2 · Prompt-Baukasten</span>
+                <h2 class="text-lg sm:text-xl font-extrabold text-white">Deinen Wunsch einfach auf Deutsch beschreiben</h2>
+              </div>
+            </div>
+            <span class="text-xs px-2.5 py-1 rounded-full bg-amber-500/15 text-amber-300 border border-amber-400/30 shrink-0">Kein Code nötig</span>
+          </div>
+
+          <div class="mt-4 space-y-3.5 text-sm text-slate-300">
+            <p>
+              Wähle unten eine Vorlage oder tippe deine GitHub-Issue-Nummer ein – und kopiere den fertigen Auftrag direkt in Claude Code:
+            </p>
+
+            <!-- Interactive Preset Buttons & Issue Input -->
+            <div class="flex flex-wrap items-center gap-2" onclick="event.stopPropagation();">
+              <button data-preset="bug" class="preset-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-orange-500 text-slate-950 shadow transition">
+                🐞 Fehler beheben (z.B. #383)
+              </button>
+              <button data-preset="ui" class="preset-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-[#12161F] hover:bg-slate-800 text-slate-300 border border-white/10 transition">
+                🎨 UI-Wunsch / Button (z.B. #388)
+              </button>
+              <button data-preset="docs" class="preset-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-[#12161F] hover:bg-slate-800 text-slate-300 border border-white/10 transition">
+                📖 Hilfetext / Bank-Info (z.B. #344)
+              </button>
+
+              <div class="flex items-center gap-1.5 bg-[#12161F] border border-white/15 rounded-xl px-2.5 py-1 ml-auto">
+                <span class="text-xs text-slate-400 font-semibold">Issue #</span>
+                <input id="issue-num-input" type="text" value="383" maxlength="5" class="w-12 bg-transparent text-amber-300 font-mono-code font-bold text-xs focus:outline-none text-center" />
+              </div>
+            </div>
+
+            <!-- Generated Prompt Box -->
+            <div class="relative rounded-xl bg-[#12161F] border border-amber-400/40 p-3.5 shadow-inner" onclick="event.stopPropagation();">
+              <div class="flex items-center justify-between text-[11px] text-amber-300/90 font-semibold mb-1.5">
+                <span>✨ Dein fertiger Prompt für Claude Code:</span>
+                <button id="btn-copy-prompt-2" class="px-3 py-1 rounded-lg bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold text-xs transition shadow">
+                  📋 Prompt kopieren
+                </button>
+              </div>
+              <p id="generated-prompt-text" class="font-mono-code text-xs text-slate-100 leading-relaxed select-all">
+                Bitte schau dir Issue #383 in GiroCrab/GiroCrab an. Suche die passende Stelle im Code, baue die Lösung gemäß CLAUDE.md ein, führe die Tests (swift test / cargo test) aus und starte die App danach im sicheren Demo-Modus (GIROCRAB_DEMO_SEED=1 swift run --package-path GiroCrabApp GiroCrabMac), damit ich es ausprobieren kann.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 3 -->
+        <div id="step-card-3" data-step="3" class="step-card rounded-2xl p-6 cursor-pointer">
+          <div class="flex items-start justify-between gap-4">
+            <div class="flex items-center gap-3.5">
+              <div class="w-10 h-10 rounded-xl bg-sky-400 text-slate-950 font-black text-lg flex items-center justify-center shrink-0 shadow-lg shadow-sky-400/30">
+                3
+              </div>
+              <div>
+                <span class="text-[11px] font-bold uppercase tracking-wider text-sky-400">Schritt 3 · Gefahrlos testen</span>
+                <h2 class="text-lg sm:text-xl font-extrabold text-white">Im Demo-Tresor anschauen &amp; per Zuruf verfeinern</h2>
+              </div>
+            </div>
+            <span class="text-xs px-2.5 py-1 rounded-full bg-sky-500/15 text-sky-300 border border-sky-400/30 shrink-0">Keine echten Bankdaten</span>
+          </div>
+
+          <div class="mt-4 space-y-3 text-sm text-slate-300 leading-relaxed">
+            <p>
+              Durch <code class="font-mono-code text-sky-300 bg-sky-500/10 px-1.5 py-0.5 rounded">GIROCRAB_DEMO_SEED=1</code> öffnet Claude automatisch ein GiroCrab-Fenster mit <strong>reinen Spiel- und Beispieldaten</strong>. Dein echter Tresor wird nicht angerührt!
+            </p>
+            <p>
+              Klicke die neue Funktion einfach an. Wenn dir noch eine Kleinigkeit auffällt, schreibst du Claude ganz normal auf Deutsch:
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-mono-code">
+              <button data-copy="Mach den Button noch etwas breiter und füge ein passendes SF-Symbol hinzu." onclick="event.stopPropagation();" class="text-left p-2.5 rounded-xl bg-[#12161F] hover:bg-slate-900 border border-white/10 text-sky-300 transition flex items-center justify-between gap-2">
+                <span class="truncate">💬 „Mach den Button noch etwas breiter…“</span>
+                <span class="text-slate-400 shrink-0">📋</span>
+              </button>
+              <button data-copy="Bitte ergänze auch noch die englische Übersetzung in Localizable.xcstrings." onclick="event.stopPropagation();" class="text-left p-2.5 rounded-xl bg-[#12161F] hover:bg-slate-900 border border-white/10 text-sky-300 transition flex items-center justify-between gap-2">
+                <span class="truncate">💬 „Ergänze noch die Übersetzung…“</span>
+                <span class="text-slate-400 shrink-0">📋</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 4 -->
+        <div id="step-card-4" data-step="4" class="step-card rounded-2xl p-6 cursor-pointer">
+          <div class="flex items-start justify-between gap-4">
+            <div class="flex items-center gap-3.5">
+              <div class="w-10 h-10 rounded-xl bg-emerald-500 text-slate-950 font-black text-lg flex items-center justify-center shrink-0 shadow-lg shadow-emerald-500/30">
+                4
+              </div>
+              <div>
+                <span class="text-[11px] font-bold uppercase tracking-wider text-emerald-400">Schritt 4 · Finale</span>
+                <h2 class="text-lg sm:text-xl font-extrabold text-white">Pull Request mit einem einzigen Satz absenden</h2>
+              </div>
+            </div>
+            <span class="text-xs px-2.5 py-1 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-400/30 shrink-0">1-Klick Abgabe</span>
+          </div>
+
+          <div class="mt-4 space-y-3 text-sm text-slate-300 leading-relaxed">
+            <p>
+              Du musst <strong>keine Git-Befehle</strong> auswendig kennen. Sobald im Demo-Fenster alles so aussieht, wie du es dir wünschst, schickst du Claude einfach diesen letzten Satz:
+            </p>
+
+            <div class="rounded-xl bg-[#12161F] border border-emerald-400/40 p-3.5" onclick="event.stopPropagation();">
+              <div class="flex items-center justify-between text-[11px] text-emerald-300 font-semibold mb-1.5">
+                <span>🚀 Abschluss-Befehl an Claude Code:</span>
+                <button id="btn-copy-prompt-4" class="px-3 py-1 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-xs transition shadow">
+                  📋 Satz kopieren
+                </button>
+              </div>
+              <p id="final-pr-prompt-text" class="font-mono-code text-xs text-slate-100 leading-relaxed select-all">
+                Super, das funktioniert! Bitte erstelle jetzt einen neuen Branch, führe alle Prüfskripte laut CLAUDE.md aus, committe die Änderung und öffne einen Pull Request auf GitHub für Issue #383.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT COLUMN: LIVE INTERACTIVE SIMULATOR (5 Cols, Sticky) -->
+      <div class="lg:col-span-5 lg:sticky lg:top-24 space-y-4">
+        <div class="rounded-3xl bg-[#161B24] border border-white/15 shadow-2xl overflow-hidden">
+
+          <!-- macOS Window Titlebar -->
+          <div class="bg-[#1E2430] px-4 py-3 border-b border-white/10 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-rose-500"></span>
+              <span class="w-3 h-3 rounded-full bg-amber-400"></span>
+              <span class="w-3 h-3 rounded-full bg-emerald-500"></span>
+              <span id="sim-window-title" class="ml-2 font-mono-code text-xs font-semibold text-slate-300">
+                claude — GiroCrab (Schritt 1/4)
+              </span>
+            </div>
+            <span id="sim-status-badge" class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-orange-500/20 text-orange-300 border border-orange-400/30">
+              Bereit
+            </span>
+          </div>
+
+          <!-- Step Selector Tabs inside Simulator -->
+          <div class="grid grid-cols-4 bg-[#12161F] border-b border-white/10 text-xs font-bold">
+            <button data-sim-tab="1" class="sim-tab py-2.5 border-b-2 border-orange-500 text-orange-400 bg-white/5 transition">1 · Start</button>
+            <button data-sim-tab="2" class="sim-tab py-2.5 border-b-2 border-transparent text-slate-400 hover:text-slate-200 transition">2 · Prompt</button>
+            <button data-sim-tab="3" class="sim-tab py-2.5 border-b-2 border-transparent text-slate-400 hover:text-slate-200 transition">3 · Demo-App</button>
+            <button data-sim-tab="4" class="sim-tab py-2.5 border-b-2 border-transparent text-slate-400 hover:text-slate-200 transition">4 · PR fertig</button>
+          </div>
+
+          <!-- Simulator Viewport -->
+          <div class="p-5 min-h-[390px] flex flex-col justify-between relative overflow-hidden">
+
+            <!-- SIM SCENE 1: Cloning & Reading CLAUDE.md -->
+            <div id="sim-scene-1" class="sim-scene space-y-3 font-mono-code text-xs">
+              <div class="text-slate-400">
+                <span class="text-emerald-400">~/Projekte</span> $ <span class="text-white">gh repo fork GiroCrab/GiroCrab --clone &amp;&amp; cd GiroCrab &amp;&amp; claude</span>
+              </div>
+              <div class="p-3 rounded-xl bg-black/40 border border-white/10 space-y-1.5 text-[11px] text-slate-300">
+                <div>✓ Fork <span class="text-amber-300">dein-name/GiroCrab</span> erstellt &amp; heruntergeladen</div>
+                <div>✓ Starte <span class="text-orange-400 font-bold">Claude Code</span> im Ordner <span class="text-white">GiroCrab/</span> …</div>
+              </div>
+
+              <!-- Animated CLAUDE.md Brain Scan Card -->
+              <div class="p-4 rounded-2xl bg-gradient-to-br from-emerald-500/15 via-slate-900 to-slate-900 border border-emerald-400/40 space-y-2.5 shadow-lg">
+                <div class="flex items-center justify-between">
+                  <span class="text-emerald-300 font-bold flex items-center gap-1.5">
+                    <span>📄 CLAUDE.md automatisch geladen</span>
+                  </span>
+                  <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[10px] font-bold">100 % erkannt</span>
+                </div>
+                <div class="grid grid-cols-2 gap-2 text-[11px] font-sans">
+                  <div class="bg-black/40 p-2 rounded-lg border border-white/5 text-slate-300">
+                    🦀 <strong class="text-white">Rust-Core &amp; SwiftUI</strong><br/>Architektur geladen
+                  </div>
+                  <div class="bg-black/40 p-2 rounded-lg border border-white/5 text-slate-300">
+                    🧪 <strong class="text-white">Demo-Tresor</strong><br/>GIROCRAB_DEMO_SEED=1
+                  </div>
+                  <div class="bg-black/40 p-2 rounded-lg border border-white/5 text-slate-300">
+                    🔒 <strong class="text-white">Privacy Redaction</strong><br/>.sensitive() Regeln aktiv
+                  </div>
+                  <div class="bg-black/40 p-2 rounded-lg border border-white/5 text-slate-300">
+                    ✅ <strong class="text-white">Linter &amp; Tests</strong><br/>Automatische Prüfung
+                  </div>
+                </div>
+              </div>
+
+              <div class="text-amber-300 pt-1">
+                &gt; Hallo! Wie kann ich dir heute bei GiroCrab helfen?<span class="cursor-blink">▋</span>
+              </div>
+            </div>
+
+            <!-- SIM SCENE 2: Typing German Prompt -> AI works -->
+            <div id="sim-scene-2" class="sim-scene hidden space-y-3 font-mono-code text-xs">
+              <div class="p-3 rounded-xl bg-amber-500/10 border border-amber-400/30 text-amber-200">
+                <div class="text-[10px] uppercase tracking-wider text-amber-400 font-sans font-bold mb-1">Deine Eingabe (auf Deutsch):</div>
+                <div id="sim-typed-prompt" class="text-white">
+                  "Bitte schau dir Issue #383 an, schalte die Splitbuchung frei, führe swift test aus und starte den Demo-Modus."
+                </div>
+              </div>
+
+              <div class="space-y-2 text-[11px]">
+                <div class="flex items-center justify-between p-2.5 rounded-xl bg-black/40 border border-white/10 text-slate-300">
+                  <span>🔍 Suche nach <code class="text-amber-300">"Umsatz aufteilen"</code> in GiroCrabUI…</span>
+                  <span class="text-emerald-400 font-bold">Gefunden ✓</span>
+                </div>
+                <div class="flex items-center justify-between p-2.5 rounded-xl bg-black/40 border border-white/10 text-slate-300">
+                  <span>✏️ Passe <code class="text-sky-300">BookingInspectorView.swift</code> an…</span>
+                  <span class="text-emerald-400 font-bold">+18 / -4 ✓</span>
+                </div>
+                <div class="flex items-center justify-between p-2.5 rounded-xl bg-black/40 border border-white/10 text-slate-300">
+                  <span>🧪 Führe <code class="text-emerald-300">swift test --package-path GiroCrabApp</code> aus…</span>
+                  <span class="text-emerald-400 font-bold">296 bestanden ✓</span>
+                </div>
+                <div class="flex items-center justify-between p-2.5 rounded-xl bg-emerald-500/15 border border-emerald-400/40 text-emerald-200">
+                  <span>🚀 Starte <code class="text-white">GIROCRAB_DEMO_SEED=1 GiroCrabMac</code></span>
+                  <span class="px-2 py-0.5 rounded bg-emerald-500 text-slate-950 font-bold">Läuft</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- SIM SCENE 3: Interactive Demo Vault Preview -->
+            <div id="sim-scene-3" class="sim-scene hidden space-y-3">
+              <div class="flex items-center justify-between bg-sky-500/15 border border-sky-400/30 px-3 py-2 rounded-xl text-xs">
+                <span class="font-bold text-sky-300">🖥️ GiroCrab Demo-Tresor (Beispieldaten)</span>
+                <span class="font-mono-code text-[11px] text-sky-200">GIROCRAB_DEMO_SEED=1</span>
+              </div>
+
+              <!-- Interactive Mockup of GiroCrab Inspector -->
+              <div class="p-4 rounded-2xl bg-[#12161F] border border-white/15 space-y-3">
+                <div class="flex items-center justify-between border-b border-white/10 pb-2.5">
+                  <div>
+                    <div class="text-xs font-bold text-white">REWE Markt GmbH (Demo-Buchung)</div>
+                    <div class="text-[11px] text-slate-400">Girokonto · Gebucht · Demo-Tresor</div>
+                  </div>
+                  <span class="font-mono-code text-sm font-extrabold text-rose-400">-120,00 €</span>
+                </div>
+
+                <!-- Interactive Toggle Button inside Simulator -->
+                <div id="sim-demo-split-box" class="p-3 rounded-xl bg-emerald-500/15 border-2 border-emerald-400 transition-all">
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                      <span id="sim-split-icon" class="text-lg">🔓</span>
+                      <div>
+                        <div class="text-xs font-extrabold text-white">Umsatz aufteilen (Splitbuchung)</div>
+                        <div id="sim-split-sub" class="text-[11px] text-emerald-300">Jetzt aktiv &amp; klickbar im Inspector!</div>
+                      </div>
+                    </div>
+                    <button id="btn-test-split-live" class="px-3 py-1 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-xs shadow transition">
+                      Test-Klick ✨
+                    </button>
+                  </div>
+
+                  <div id="sim-split-rows" class="mt-2.5 pt-2.5 border-t border-emerald-400/30 space-y-1.5 text-[11px] font-mono-code">
+                    <div class="flex justify-between text-slate-200">
+                      <span>🛒 Lebensmittel</span>
+                      <span class="text-emerald-300">-80,00 €</span>
+                    </div>
+                    <div class="flex justify-between text-slate-200">
+                      <span>🧴 Drogerie &amp; Haushalt</span>
+                      <span class="text-emerald-300">-40,00 €</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="text-[11px] text-slate-400 flex items-center justify-between pt-1">
+                  <span>Noch einen Wunsch? Einfach Claude zurufen!</span>
+                  <span class="text-emerald-400 font-semibold">✓ Geprüft</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- SIM SCENE 4: Pull Request Created Celebration -->
+            <div id="sim-scene-4" class="sim-scene hidden space-y-3">
+              <div class="p-3 rounded-xl bg-black/40 border border-white/10 font-mono-code text-[11px] space-y-1 text-slate-300">
+                <div>✓ <span class="text-emerald-400">scripts/lint-vault-access.sh</span> &amp; <span class="text-emerald-400">xcstrings.py check</span> sauber</div>
+                <div>✓ Branch <span class="text-amber-300">fix/issue-383-splitbuchung</span> gepusht</div>
+                <div>✓ <span class="text-emerald-400 font-bold">gh pr create</span> erfolgreich ausgeführt!</div>
+              </div>
+
+              <!-- GitHub PR Card Preview -->
+              <div class="p-4 rounded-2xl bg-gradient-to-br from-emerald-500/20 via-[#1E2430] to-[#12161F] border-2 border-emerald-400 shadow-[0_0_35px_rgba(16,185,129,0.3)] space-y-3">
+                <div class="flex items-center justify-between">
+                  <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500 text-slate-950 font-black text-xs">
+                    <span>🎉 Pull Request geöffnet!</span>
+                  </span>
+                  <span class="font-mono-code text-xs text-emerald-300 font-bold">Checks 3/3 ✓</span>
+                </div>
+
+                <div>
+                  <div class="text-sm font-extrabold text-white">fix: Splitbuchung für alle Einzelbuchungen freischalten (#383)</div>
+                  <div class="text-xs text-slate-300 mt-1">
+                    Erstellt von <strong>Dir</strong> mithilfe von <strong>Claude Code</strong> · Closes #383
+                  </div>
+                </div>
+
+                <div class="p-2.5 rounded-xl bg-black/35 border border-white/10 text-xs text-amber-200 flex items-center gap-2">
+                  <span class="text-lg">🦀</span>
+                  <span><strong>Willkommen im GiroCrab-Team!</strong> Wir schauen drüber und mergen deinen Beitrag ins nächste Release.</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Simulator Footer Navigation -->
+            <div class="pt-4 mt-4 border-t border-white/10 flex items-center justify-between text-xs">
+              <button id="sim-prev-btn" class="px-3 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 font-semibold transition">
+                ← Zurück
+              </button>
+              <span id="sim-step-indicator" class="text-slate-400 font-mono-code">Schritt 1 von 4</span>
+              <button id="sim-next-btn" class="px-3.5 py-1.5 rounded-xl bg-orange-500 hover:bg-orange-400 text-slate-950 font-extrabold transition">
+                Nächster Schritt →
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- 3. READY-TO-PASTE GITHUB MARKDOWN EXPORT SECTION                    -->
+    <!-- =================================================================== -->
+    <section class="mt-12 rounded-3xl bg-[#1E2430]/90 border border-white/10 p-6 sm:p-8 shadow-2xl">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-white/10">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-emerald-400">Direkt für GitHub Issues, Discussions &amp; Wiki</span>
+          <h3 class="text-xl font-extrabold text-white mt-0.5">
+            Anleitung als kompaktes GitHub-Markdown kopieren
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-400 mt-1">
+            Ein Klick kopiert die komplette 4-Schritte-Anleitung formatiert für GitHub – perfekt zum Posten unter Issues oder als gepinnte Discussion.
+          </p>
+        </div>
+        <button id="btn-copy-md-bottom" class="px-5 py-3 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-sm shadow-lg shadow-emerald-500/25 transition shrink-0 flex items-center gap-2 self-start sm:self-auto">
+          <span>📋</span>
+          <span>Markdown für GitHub kopieren</span>
+        </button>
+      </div>
+
+      <pre id="markdown-source" class="mt-4 p-4 rounded-2xl bg-[#12161F] border border-white/10 font-mono-code text-xs text-slate-300 overflow-x-auto leading-relaxed max-h-64">### 🦀 In 4 Schritten zum eigenen Pull Request mit KI – auch ohne Programmierkenntnisse!
+
+Du hast einen Fehler gefunden oder wünschst dir eine Funktion in **GiroCrab**, programmierst aber selbst kein `Swift` oder `Rust`? **Kein Problem!**
+Wenn du ein KI-Abo (z. B. **Claude Pro / Claude Code** oder **Cursor**) hast, kannst du deinen Wunsch in wenigen Minuten selbst einbauen. In unserem Repository liegt eine fertige `CLAUDE.md`-Datei, die deiner KI automatisch unsere gesamte Architektur, alle Regeln und die Selbsttests erklärt.
+
+#### 1️⃣ GiroCrab öffnen &amp; Claude Code starten
+- **In der Claude Desktop App (Reiter „Code“) oder Cursor:** Klicke auf *Repository klonen* und gib `https://github.com/GiroCrab/GiroCrab.git` ein.
+- **Oder im macOS Terminal:**
+  ```zsh
+  gh repo fork GiroCrab/GiroCrab --clone &amp;&amp; cd GiroCrab &amp;&amp; claude
+  ```
+  *(Claude liest beim Start automatisch unsere `CLAUDE.md`.)*
+
+#### 2️⃣ Deinen Wunsch auf Deutsch eingeben
+Kopiere einfach diesen Auftrag (mit deiner Issue-Nummer) in Claude Code:
+```text
+Bitte schau dir Issue #383 in GiroCrab/GiroCrab an. Suche die passende Stelle im Code, baue die Lösung gemäß CLAUDE.md ein, führe die Tests (swift test / cargo test) aus und starte die App danach im sicheren Demo-Modus (GIROCRAB_DEMO_SEED=1 swift run --package-path GiroCrabApp GiroCrabMac), damit ich es ausprobieren kann.
+```
+
+#### 3️⃣ Im sicheren Demo-Tresor anschauen
+GiroCrab öffnet sich automatisch mit reinen **Beispieldaten** (`GIROCRAB_DEMO_SEED=1` – deine echten Kontodaten werden nicht berührt). Klicke deine neue Funktion an! Wenn du noch etwas ändern möchtest, schreib es Claude einfach auf Deutsch (z. B. *„Mach den Button noch etwas breiter“*).
+
+#### 4️⃣ Pull Request mit 1 Satz absenden
+Wenn im Demo-Modus alles passt, brauchst du keine Git-Befehle zu kennen – schreib einfach:
+```text
+Super, das funktioniert! Bitte erstelle jetzt einen neuen Branch, führe alle Prüfskripte laut CLAUDE.md aus, committe die Änderung und öffne einen Pull Request auf GitHub für Issue #383.
+```
+**Fertig – willkommen im GiroCrab-Team! 🦀🚀**</pre>
+    </section>
+
+  </main>
+
+  <script>
+    // =========================================================================
+    // 1. CLIPBOARD HELPER (IFRAME-SAFE + TOAST)
+    // =========================================================================
+    const toast = document.getElementById('copy-toast');
+    const toastText = document.getElementById('copy-toast-text');
+    let toastTimer = null;
+
+    function copyTextToClipboard(text, label = 'In die Zwischenablage kopiert!') {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        document.execCommand('copy');
+      } catch (err) {
+        // Fallback
+      }
+      document.body.removeChild(textarea);
+
+      toastText.textContent = label;
+      toast.classList.remove('opacity-0', 'translate-y-4');
+      toast.classList.add('opacity-100', 'translate-y-0');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-4');
+        toast.classList.remove('opacity-100', 'translate-y-0');
+      }, 2400);
+    }
+
+    document.querySelectorAll('[data-copy]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        copyTextToClipboard(btn.getAttribute('data-copy'), 'Befehl kopiert!');
+      });
+    });
+
+    // =========================================================================
+    // 2. MODE SWITCHER (GUI vs. CLI)
+    // =========================================================================
+    const modeBtnGui = document.getElementById('mode-btn-gui');
+    const modeBtnCli = document.getElementById('mode-btn-cli');
+    const guiBlocks = document.querySelectorAll('.mode-gui-block');
+    const cliBlocks = document.querySelectorAll('.mode-cli-block');
+
+    modeBtnGui.addEventListener('click', () => {
+      modeBtnGui.className = 'px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 bg-gradient-to-r from-orange-500 to-amber-500 text-slate-950 shadow';
+      modeBtnCli.className = 'px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 text-slate-300 hover:text-white';
+      guiBlocks.forEach(b => b.classList.remove('hidden'));
+      cliBlocks.forEach(b => b.classList.add('hidden'));
+    });
+
+    modeBtnCli.addEventListener('click', () => {
+      modeBtnCli.className = 'px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 bg-gradient-to-r from-orange-500 to-amber-500 text-slate-950 shadow';
+      modeBtnGui.className = 'px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 text-slate-300 hover:text-white';
+      cliBlocks.forEach(b => b.classList.remove('hidden'));
+      guiBlocks.forEach(b => b.classList.add('hidden'));
+    });
+
+    // =========================================================================
+    // 3. INTERACTIVE PROMPT BUILDER (STEP 2 & STEP 4)
+    // =========================================================================
+    let currentPreset = 'bug';
+    const issueInput = document.getElementById('issue-num-input');
+    const generatedPromptEl = document.getElementById('generated-prompt-text');
+    const finalPrPromptEl = document.getElementById('final-pr-prompt-text');
+    const simTypedPromptEl = document.getElementById('sim-typed-prompt');
+
+    const PRESET_TEMPLATES = {
+      bug: (num) => `Bitte schau dir Issue #${num} in GiroCrab/GiroCrab an. Suche die Ursache im Code, behebe den Fehler gemäß CLAUDE.md, führe die Tests (swift test / cargo test) aus und starte die App danach im sicheren Demo-Modus (GIROCRAB_DEMO_SEED=1 swift run --package-path GiroCrabApp GiroCrabMac), damit ich es ausprobieren kann.`,
+      ui: (num) => `Bitte setze den UI-Wunsch aus Issue #${num} in GiroCrab/GiroCrab gemäß CLAUDE.md (inkl. .appFont und Localizable.xcstrings) um. Führe danach swift test aus und starte die App im Demo-Modus (GIROCRAB_DEMO_SEED=1 swift run --package-path GiroCrabApp GiroCrabMac), damit ich mir die Ansicht anschauen kann.`,
+      docs: (num) => `Bitte ergänze den Hinweis / Hilfetext aus Issue #${num} in GiroCrab/GiroCrab (inkl. Deutsch & Englisch in Localizable.xcstrings), prüfe scripts/xcstrings.py check und zeige mir das Ergebnis im Demo-Modus (GIROCRAB_DEMO_SEED=1 swift run --package-path GiroCrabApp GiroCrabMac).`
+    };
+
+    function updatePrompts() {
+      const num = (issueInput.value || '383').replace(/[^0-9]/g, '') || '383';
+      const promptText = PRESET_TEMPLATES[currentPreset](num);
+      generatedPromptEl.textContent = promptText;
+      simTypedPromptEl.textContent = `"${promptText}"`;
+      finalPrPromptEl.textContent = `Super, das funktioniert! Bitte erstelle jetzt einen neuen Branch, führe alle Prüfskripte laut CLAUDE.md aus, committe die Änderung und öffne einen Pull Request auf GitHub für Issue #${num}.`;
+    }
+
+    document.querySelectorAll('.preset-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        currentPreset = btn.getAttribute('data-preset');
+        if (currentPreset === 'bug') issueInput.value = '383';
+        if (currentPreset === 'ui') issueInput.value = '388';
+        if (currentPreset === 'docs') issueInput.value = '344';
+
+        document.querySelectorAll('.preset-btn').forEach((b) => {
+          b.className = 'preset-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-[#12161F] hover:bg-slate-800 text-slate-300 border border-white/10 transition';
+        });
+        btn.className = 'preset-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-orange-500 text-slate-950 shadow transition';
+        updatePrompts();
+        setActiveStep(2);
+      });
+    });
+
+    issueInput.addEventListener('input', updatePrompts);
+
+    document.getElementById('btn-copy-prompt-2').addEventListener('click', () => {
+      copyTextToClipboard(generatedPromptEl.textContent, 'Schritt-2-Prompt kopiert!');
+    });
+
+    document.getElementById('btn-copy-prompt-4').addEventListener('click', () => {
+      copyTextToClipboard(finalPrPromptEl.textContent, 'Abschluss-Befehl kopiert!');
+    });
+
+    // =========================================================================
+    // 4. STEP SYNCHRONIZATION & SIMULATOR NAVIGATION (STEPS 1..4)
+    // =========================================================================
+    let activeStep = 1;
+    let autoPlayInterval = null;
+
+    const STEP_META = {
+      1: { title: 'claude — GiroCrab (Schritt 1/4)', badge: 'CLAUDE.md geladen', badgeClass: 'bg-emerald-500/20 text-emerald-300 border-emerald-400/30' },
+      2: { title: 'claude — Prompt läuft (Schritt 2/4)', badge: 'KI baut & testet…', badgeClass: 'bg-amber-500/20 text-amber-300 border-amber-400/30' },
+      3: { title: 'GiroCrabMac — Demo-Tresor (Schritt 3/4)', badge: 'Demo-Modus aktiv', badgeClass: 'bg-sky-500/20 text-sky-300 border-sky-400/30' },
+      4: { title: 'gh pr create — Fertig! (Schritt 4/4)', badge: 'PR #383 geöffnet 🎉', badgeClass: 'bg-emerald-500 text-slate-950 font-extrabold' }
+    };
+
+    function setActiveStep(stepNum) {
+      activeStep = stepNum;
+
+      // Update left step cards
+      document.querySelectorAll('.step-card').forEach((card) => {
+        const s = parseInt(card.getAttribute('data-step'), 10);
+        if (s === stepNum) card.classList.add('active-step');
+        else card.classList.remove('active-step');
+      });
+
+      // Update simulator tabs
+      document.querySelectorAll('.sim-tab').forEach((tab) => {
+        const s = parseInt(tab.getAttribute('data-sim-tab'), 10);
+        if (s === stepNum) {
+          tab.className = 'sim-tab py-2.5 border-b-2 border-orange-500 text-orange-400 bg-white/5 transition';
+        } else {
+          tab.className = 'sim-tab py-2.5 border-b-2 border-transparent text-slate-400 hover:text-slate-200 transition';
+        }
+      });
+
+      // Update simulator scenes
+      for (let i = 1; i <= 4; i++) {
+        const scene = document.getElementById(`sim-scene-${i}`);
+        if (i === stepNum) scene.classList.remove('hidden');
+        else scene.classList.add('hidden');
+      }
+
+      // Update simulator header & footer
+      const meta = STEP_META[stepNum];
+      document.getElementById('sim-window-title').textContent = meta.title;
+      const badgeEl = document.getElementById('sim-status-badge');
+      badgeEl.textContent = meta.badge;
+      badgeEl.className = `text-[11px] font-bold px-2.5 py-0.5 rounded-full border ${meta.badgeClass}`;
+      document.getElementById('sim-step-indicator').textContent = `Schritt ${stepNum} von 4`;
+    }
+
+    document.querySelectorAll('.step-card').forEach((card) => {
+      card.addEventListener('click', () => {
+        stopAutoPlay();
+        setActiveStep(parseInt(card.getAttribute('data-step'), 10));
+      });
+    });
+
+    document.querySelectorAll('.sim-tab').forEach((tab) => {
+      tab.addEventListener('click', () => {
+        stopAutoPlay();
+        setActiveStep(parseInt(tab.getAttribute('data-sim-tab'), 10));
+      });
+    });
+
+    document.getElementById('sim-prev-btn').addEventListener('click', () => {
+      stopAutoPlay();
+      setActiveStep(activeStep > 1 ? activeStep - 1 : 4);
+    });
+
+    document.getElementById('sim-next-btn').addEventListener('click', () => {
+      stopAutoPlay();
+      setActiveStep(activeStep < 4 ? activeStep + 1 : 1);
+    });
+
+    // Interactive Demo Split Button in Scene 3
+    const btnTestSplit = document.getElementById('btn-test-split-live');
+    const splitRows = document.getElementById('sim-split-rows');
+    btnTestSplit.addEventListener('click', () => {
+      splitRows.classList.toggle('hidden');
+      btnTestSplit.textContent = splitRows.classList.contains('hidden') ? 'Aufteilen öffnen' : 'Aufgeteilt ✓';
+    });
+
+    // Auto-Play Demo Loop
+    const btnAutoplay = document.getElementById('btn-autoplay');
+    const autoplayIcon = document.getElementById('autoplay-icon');
+    const autoplayLabel = document.getElementById('autoplay-label');
+
+    function stopAutoPlay() {
+      if (autoPlayInterval) {
+        clearInterval(autoPlayInterval);
+        autoPlayInterval = null;
+        autoplayIcon.textContent = '▶';
+        autoplayLabel.textContent = 'Auto-Demo abspielen';
+      }
+    }
+
+    btnAutoplay.addEventListener('click', () => {
+      if (autoPlayInterval) {
+        stopAutoPlay();
+      } else {
+        autoplayIcon.textContent = '⏸';
+        autoplayLabel.textContent = 'Auto-Demo läuft…';
+        setActiveStep(1);
+        autoPlayInterval = setInterval(() => {
+          setActiveStep(activeStep < 4 ? activeStep + 1 : 1);
+        }, 3200);
+      }
+    });
+
+    // Copy Markdown Guide Buttons
+    const mdSource = document.getElementById('markdown-source');
+    document.getElementById('btn-copy-md-top').addEventListener('click', () => {
+      copyTextToClipboard(mdSource.textContent, 'GitHub-Markdown in die Zwischenablage kopiert!');
+    });
+    document.getElementById('btn-copy-md-bottom').addEventListener('click', () => {
+      copyTextToClipboard(mdSource.textContent, 'GitHub-Markdown in die Zwischenablage kopiert!');
+    });
+  </script>
+</body>
+</html>
