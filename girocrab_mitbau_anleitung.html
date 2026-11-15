@@ -88,6 +88,17 @@
       box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(250, 91, 34, 0.35), 0 0 35px -10px rgba(250, 91, 34, 0.25);
     }
 
+    /* Safety Net Pillar Cards */
+    .safety-pillar {
+      background: rgba(18, 22, 31, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.25s ease;
+    }
+    .safety-pillar:hover {
+      border-color: rgba(16, 185, 129, 0.45);
+      transform: translateY(-2px);
+    }
+
     /* Blinking cursor */
     @keyframes blink {
       0%, 49% { opacity: 1; }
@@ -407,7 +418,7 @@
                 🐞 Fehler beheben (z.B. #383)
               </button>
               <button data-preset="ui" class="preset-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-[#12161F] hover:bg-slate-800 text-slate-300 border border-white/10 transition">
-                🎨 UI-Wunsch / Button (z.B. #388)
+                🎨 UI-Wunsch / Farben (z.B. #218)
               </button>
               <button data-preset="docs" class="preset-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-[#12161F] hover:bg-slate-800 text-slate-300 border border-white/10 transition">
                 📖 Hilfetext / Bank-Info (z.B. #344)
@@ -477,7 +488,7 @@
                 4
               </div>
               <div>
-                <span class="text-[11px] font-bold uppercase tracking-wider text-emerald-400">Schritt 4 · Finale</span>
+                <span class="text-[11px] font-bold uppercase tracking-wider text-emerald-400">Schritt 4 · Finale &amp; Sicherheitsnetz</span>
                 <h2 class="text-lg sm:text-xl font-extrabold text-white">Pull Request mit einem einzigen Satz absenden</h2>
               </div>
             </div>
@@ -529,11 +540,11 @@
             <button data-sim-tab="1" class="sim-tab py-2.5 border-b-2 border-orange-500 text-orange-400 bg-white/5 transition">1 · Start</button>
             <button data-sim-tab="2" class="sim-tab py-2.5 border-b-2 border-transparent text-slate-400 hover:text-slate-200 transition">2 · Prompt</button>
             <button data-sim-tab="3" class="sim-tab py-2.5 border-b-2 border-transparent text-slate-400 hover:text-slate-200 transition">3 · Demo-App</button>
-            <button data-sim-tab="4" class="sim-tab py-2.5 border-b-2 border-transparent text-slate-400 hover:text-slate-200 transition">4 · PR fertig</button>
+            <button data-sim-tab="4" class="sim-tab py-2.5 border-b-2 border-transparent text-slate-400 hover:text-slate-200 transition">4 · PR &amp; Schutz</button>
           </div>
 
           <!-- Simulator Viewport -->
-          <div class="p-5 min-h-[390px] flex flex-col justify-between relative overflow-hidden">
+          <div class="p-5 min-h-[420px] flex flex-col justify-between relative overflow-hidden">
 
             <!-- SIM SCENE 1: Cloning & Reading CLAUDE.md -->
             <div id="sim-scene-1" class="sim-scene space-y-3 font-mono-code text-xs">
@@ -589,12 +600,12 @@
                   <span class="text-emerald-400 font-bold">Gefunden ✓</span>
                 </div>
                 <div class="flex items-center justify-between p-2.5 rounded-xl bg-black/40 border border-white/10 text-slate-300">
-                  <span>✏️ Passe <code class="text-sky-300">BookingInspectorView.swift</code> an…</span>
+                  <span>✏️ Passe <code class="text-sky-300">BookingDetailView.swift</code> an…</span>
                   <span class="text-emerald-400 font-bold">+18 / -4 ✓</span>
                 </div>
                 <div class="flex items-center justify-between p-2.5 rounded-xl bg-black/40 border border-white/10 text-slate-300">
                   <span>🧪 Führe <code class="text-emerald-300">swift test --package-path GiroCrabApp</code> aus…</span>
-                  <span class="text-emerald-400 font-bold">296 bestanden ✓</span>
+                  <span class="text-emerald-400 font-bold">337 bestanden ✓</span>
                 </div>
                 <div class="flex items-center justify-between p-2.5 rounded-xl bg-emerald-500/15 border border-emerald-400/40 text-emerald-200">
                   <span>🚀 Starte <code class="text-white">GIROCRAB_DEMO_SEED=1 GiroCrabMac</code></span>
@@ -654,33 +665,34 @@
               </div>
             </div>
 
-            <!-- SIM SCENE 4: Pull Request Created Celebration -->
-            <div id="sim-scene-4" class="sim-scene hidden space-y-3">
-              <div class="p-3 rounded-xl bg-black/40 border border-white/10 font-mono-code text-[11px] space-y-1 text-slate-300">
-                <div>✓ <span class="text-emerald-400">scripts/lint-vault-access.sh</span> &amp; <span class="text-emerald-400">xcstrings.py check</span> sauber</div>
-                <div>✓ Branch <span class="text-amber-300">fix/issue-383-splitbuchung</span> gepusht</div>
-                <div>✓ <span class="text-emerald-400 font-bold">gh pr create</span> erfolgreich ausgeführt!</div>
+            <!-- SIM SCENE 4: Pull Request + Maintainer Safety Net -->
+            <div id="sim-scene-4" class="sim-scene hidden space-y-2.5">
+              <!-- GitHub PR Card Preview -->
+              <div class="p-3.5 rounded-2xl bg-gradient-to-br from-emerald-500/20 via-[#1E2430] to-[#12161F] border-2 border-emerald-400 shadow-[0_0_30px_rgba(16,185,129,0.25)] space-y-2">
+                <div class="flex items-center justify-between">
+                  <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500 text-slate-950 font-black text-[11px]">
+                    <span>🎉 Pull Request eingereicht!</span>
+                  </span>
+                  <span class="font-mono-code text-[11px] text-emerald-300 font-bold">CI Checks 3/3 ✓</span>
+                </div>
+                <div class="text-xs font-extrabold text-white">
+                  Erstellt von Dir + KI · Jetzt greift unser Sicherheitsnetz:
+                </div>
               </div>
 
-              <!-- GitHub PR Card Preview -->
-              <div class="p-4 rounded-2xl bg-gradient-to-br from-emerald-500/20 via-[#1E2430] to-[#12161F] border-2 border-emerald-400 shadow-[0_0_35px_rgba(16,185,129,0.3)] space-y-3">
-                <div class="flex items-center justify-between">
-                  <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500 text-slate-950 font-black text-xs">
-                    <span>🎉 Pull Request geöffnet!</span>
-                  </span>
-                  <span class="font-mono-code text-xs text-emerald-300 font-bold">Checks 3/3 ✓</span>
+              <!-- Visualized 4-Layer Safety Net in Simulator -->
+              <div class="space-y-1.5 text-[11px]">
+                <div class="flex items-center justify-between p-2 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-slate-200">
+                  <span>🛡️ <strong>Sicherheit &amp; Stabilität:</strong> Automatisierte Tests + Maintainer-Audit</span>
+                  <span class="text-emerald-400 font-bold shrink-0">Geprüft ✓</span>
                 </div>
-
-                <div>
-                  <div class="text-sm font-extrabold text-white">fix: Splitbuchung für alle Einzelbuchungen freischalten (#383)</div>
-                  <div class="text-xs text-slate-300 mt-1">
-                    Erstellt von <strong>Dir</strong> mithilfe von <strong>Claude Code</strong> · Closes #383
-                  </div>
+                <div class="flex items-center justify-between p-2 rounded-xl bg-sky-500/10 border border-sky-500/30 text-slate-200">
+                  <span>🧹 <strong>Gemeinsames Refactoring:</strong> Schlanker Code ohne Aufblähen</span>
+                  <span class="text-sky-300 font-bold shrink-0">Poliert ✓</span>
                 </div>
-
-                <div class="p-2.5 rounded-xl bg-black/35 border border-white/10 text-xs text-amber-200 flex items-center gap-2">
-                  <span class="text-lg">🦀</span>
-                  <span><strong>Willkommen im GiroCrab-Team!</strong> Wir schauen drüber und mergen deinen Beitrag ins nächste Release.</span>
+                <div class="flex items-center justify-between p-2 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-200">
+                  <span>🤝 <strong>Kein Stress:</strong> Falls du nicht magst, setzen wir es direkt für dich um!</span>
+                  <span class="text-amber-300 font-bold shrink-0">Garantiert</span>
                 </div>
               </div>
             </div>
@@ -703,17 +715,97 @@
     </section>
 
     <!-- =================================================================== -->
+    <!-- 2B. VISUAL SAFETY NET GUARANTEE ("DU KANNST NICHTS KAPUTT MACHEN")  -->
+    <!-- =================================================================== -->
+    <section class="mt-10 relative rounded-3xl bg-gradient-to-br from-emerald-500/15 via-[#1E2430] to-[#12161F] border-2 border-emerald-500/40 p-6 sm:p-9 shadow-[0_20px_60px_-15px_rgba(16,185,129,0.2)] overflow-hidden">
+      <div class="absolute -right-20 -top-20 w-72 h-72 bg-emerald-500/15 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div class="relative z-10 space-y-6">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-white/10 pb-5">
+          <div class="space-y-1.5">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 text-xs font-extrabold uppercase tracking-wider">
+              <span>🛡️ Unser GiroCrab-Sicherheitsnetz für Einsteiger</span>
+            </div>
+            <h2 class="text-xl sm:text-2xl lg:text-3xl font-black text-white tracking-tight">
+              Und das Wichtigste – du kannst dabei <span class="text-emerald-400 underline decoration-emerald-400/50 decoration-wavy underline-offset-4">absolut nichts kaputt machen</span>:
+            </h2>
+          </div>
+          <div class="px-4 py-2 rounded-2xl bg-black/40 border border-emerald-400/30 text-xs text-emerald-200 font-semibold shrink-0 flex items-center gap-2 self-start md:self-auto">
+            <span class="text-lg">🦀</span>
+            <span>Du gibst den Impuls – wir sichern alles ab!</span>
+          </div>
+        </div>
+
+        <!-- Exact Reassurance Quote Block -->
+        <p id="safety-net-quote" class="text-slate-200 text-sm sm:text-base leading-relaxed max-w-4xl bg-black/30 border-l-4 border-emerald-400 pl-4 py-3 rounded-r-2xl">
+          Falls du so einen Pull Request mal testweise einreichst, prüfen unsere <strong>automatisierten Tests</strong> und wir als <strong>Maintainer</strong> vor dem Einbau alles gründlich auf <strong>Sicherheit und Funktionsfähigkeit</strong>. Wir schauen, dass die <strong>App stabil bleibt</strong>, und <strong>refactoren den Code gemeinsam</strong>, damit nichts unnötig aufgebläht wird. Und falls nicht, setzen wir <code id="safety-issue-placeholder" class="font-mono-code text-amber-300 font-bold">#383</code> natürlich genauso gerne direkt für dich um.
+        </p>
+
+        <!-- 4 Visual Pillars of the Safety Net -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <!-- Pillar 1 -->
+          <div class="safety-pillar rounded-2xl p-4 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="w-10 h-10 rounded-xl bg-emerald-500/20 border border-emerald-400/40 flex items-center justify-center text-lg">🧪</span>
+              <span class="text-[11px] font-mono-code font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">Stufe 1 · CI-Schutz</span>
+            </div>
+            <h3 class="text-sm font-extrabold text-white">Automatisierte Tests</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Über 950 automatische Rust- &amp; Swift-Tests sowie Linter prüfen jeden Entwurf sofort auf Herz und Nieren.
+            </p>
+          </div>
+
+          <!-- Pillar 2 -->
+          <div class="safety-pillar rounded-2xl p-4 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-lg">🔐</span>
+              <span class="text-[11px] font-mono-code font-bold text-amber-300 bg-amber-500/10 px-2 py-0.5 rounded">Stufe 2 · Security-Review</span>
+            </div>
+            <h3 class="text-sm font-extrabold text-white">Sicherheit &amp; Stabilität</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Wir als Maintainer schauen vor dem Einbau gründlich drüber, damit die App stabil und sicher bleibt.
+            </p>
+          </div>
+
+          <!-- Pillar 3 -->
+          <div class="safety-pillar rounded-2xl p-4 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="w-10 h-10 rounded-xl bg-sky-500/20 border border-sky-400/40 flex items-center justify-center text-lg">🧹</span>
+              <span class="text-[11px] font-mono-code font-bold text-sky-300 bg-sky-500/10 px-2 py-0.5 rounded">Stufe 3 · Clean Code</span>
+            </div>
+            <h3 class="text-sm font-extrabold text-white">Gemeinsames Refactoring</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Wir räumen den KI-Code bei Bedarf gemeinsam auf, damit nichts unnötig aufgebläht wird.
+            </p>
+          </div>
+
+          <!-- Pillar 4 -->
+          <div class="safety-pillar rounded-2xl p-4 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="w-10 h-10 rounded-xl bg-orange-500/20 border border-orange-400/40 flex items-center justify-center text-lg">🤝</span>
+              <span class="text-[11px] font-mono-code font-bold text-orange-300 bg-orange-500/10 px-2 py-0.5 rounded">Stufe 4 · Kein Druck</span>
+            </div>
+            <h3 class="text-sm font-extrabold text-white">Oder wir übernehmen!</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Alles komplett freiwillig: Falls du es nicht selbst probieren magst, bauen wir dein Ticket genauso gerne direkt für dich.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
     <!-- 3. READY-TO-PASTE GITHUB MARKDOWN EXPORT SECTION                    -->
     <!-- =================================================================== -->
-    <section class="mt-12 rounded-3xl bg-[#1E2430]/90 border border-white/10 p-6 sm:p-8 shadow-2xl">
+    <section class="mt-10 rounded-3xl bg-[#1E2430]/90 border border-white/10 p-6 sm:p-8 shadow-2xl">
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-white/10">
         <div>
           <span class="text-xs font-bold uppercase tracking-wider text-emerald-400">Direkt für GitHub Issues, Discussions &amp; Wiki</span>
           <h3 class="text-xl font-extrabold text-white mt-0.5">
-            Anleitung als kompaktes GitHub-Markdown kopieren
+            Anleitung inkl. Sicherheitsnetz als GitHub-Markdown kopieren
           </h3>
           <p class="text-xs sm:text-sm text-slate-400 mt-1">
-            Ein Klick kopiert die komplette 4-Schritte-Anleitung formatiert für GitHub – perfekt zum Posten unter Issues oder als gepinnte Discussion.
+            Ein Klick kopiert die komplette 4-Schritte-Anleitung samt „Du kannst nichts kaputt machen“-Garantie (passt sich automatisch an deine oben gewählte Issue-Nummer an).
           </p>
         </div>
         <button id="btn-copy-md-bottom" class="px-5 py-3 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-sm shadow-lg shadow-emerald-500/25 transition shrink-0 flex items-center gap-2 self-start sm:self-auto">
@@ -722,10 +814,10 @@
         </button>
       </div>
 
-      <pre id="markdown-source" class="mt-4 p-4 rounded-2xl bg-[#12161F] border border-white/10 font-mono-code text-xs text-slate-300 overflow-x-auto leading-relaxed max-h-64">### 🦀 In 4 Schritten zum eigenen Pull Request mit KI – auch ohne Programmierkenntnisse!
+      <pre id="markdown-source" class="mt-4 p-4 rounded-2xl bg-[#12161F] border border-white/10 font-mono-code text-xs text-slate-300 overflow-x-auto leading-relaxed max-h-80">### 🦀 In 4 Schritten zum eigenen Pull Request mit KI – auch ohne Programmierkenntnisse
 
-Du hast einen Fehler gefunden oder wünschst dir eine Funktion in **GiroCrab**, programmierst aber selbst kein `Swift` oder `Rust`? **Kein Problem!**
-Wenn du ein KI-Abo (z. B. **Claude Pro / Claude Code** oder **Cursor**) hast, kannst du deinen Wunsch in wenigen Minuten selbst einbauen. In unserem Repository liegt eine fertige `CLAUDE.md`-Datei, die deiner KI automatisch unsere gesamte Architektur, alle Regeln und die Selbsttests erklärt.
+Du hast einen Fehler gefunden oder wünschst dir eine Funktion in **GiroCrab**, programmierst aber selbst kein `Swift` oder `Rust`? **Kein Problem.**
+Wenn du ein KI-Abo (z. B. **Claude Pro / Claude Code** oder **Cursor**) hast, kannst du deinen Wunsch in wenigen Minuten selbst ausprobieren. In unserem Repository liegt eine fertige `CLAUDE.md`-Datei, die deiner KI automatisch unsere gesamte Architektur, alle Regeln und die Selbsttests erklärt.
 
 #### 1️⃣ GiroCrab öffnen &amp; Claude Code starten
 - **In der Claude Desktop App (Reiter „Code“) oder Cursor:** Klicke auf *Repository klonen* und gib `https://github.com/GiroCrab/GiroCrab.git` ein.
@@ -736,20 +828,22 @@ Wenn du ein KI-Abo (z. B. **Claude Pro / Claude Code** oder **Cursor**) hast, ka
   *(Claude liest beim Start automatisch unsere `CLAUDE.md`.)*
 
 #### 2️⃣ Deinen Wunsch auf Deutsch eingeben
-Kopiere einfach diesen Auftrag (mit deiner Issue-Nummer) in Claude Code:
+Kopiere einfach diesen Auftrag in Claude Code:
 ```text
 Bitte schau dir Issue #383 in GiroCrab/GiroCrab an. Suche die passende Stelle im Code, baue die Lösung gemäß CLAUDE.md ein, führe die Tests (swift test / cargo test) aus und starte die App danach im sicheren Demo-Modus (GIROCRAB_DEMO_SEED=1 swift run --package-path GiroCrabApp GiroCrabMac), damit ich es ausprobieren kann.
 ```
 
 #### 3️⃣ Im sicheren Demo-Tresor anschauen
-GiroCrab öffnet sich automatisch mit reinen **Beispieldaten** (`GIROCRAB_DEMO_SEED=1` – deine echten Kontodaten werden nicht berührt). Klicke deine neue Funktion an! Wenn du noch etwas ändern möchtest, schreib es Claude einfach auf Deutsch (z. B. *„Mach den Button noch etwas breiter“*).
+GiroCrab öffnet sich automatisch mit reinen **Beispieldaten** (`GIROCRAB_DEMO_SEED=1` – deine echten Kontodaten werden nicht berührt). Klicke deine neue Funktion an. Wenn du noch etwas ändern möchtest, schreib es Claude einfach auf Deutsch (z. B. *„Mach den Button noch etwas breiter“*).
 
 #### 4️⃣ Pull Request mit 1 Satz absenden
 Wenn im Demo-Modus alles passt, brauchst du keine Git-Befehle zu kennen – schreib einfach:
 ```text
-Super, das funktioniert! Bitte erstelle jetzt einen neuen Branch, führe alle Prüfskripte laut CLAUDE.md aus, committe die Änderung und öffne einen Pull Request auf GitHub für Issue #383.
+Super, das funktioniert. Bitte erstelle jetzt einen neuen Branch, führe alle Prüfskripte laut CLAUDE.md aus, committe die Änderung und öffne einen Pull Request auf GitHub für Issue #383.
 ```
-**Fertig – willkommen im GiroCrab-Team! 🦀🚀**</pre>
+
+**Und das Wichtigste – du kannst dabei absolut nichts kaputt machen:**
+Falls du so einen Pull Request mal testweise einreichst, prüfen unsere automatisierten Tests und wir als Maintainer vor dem Einbau alles gründlich auf **Sicherheit und Funktionsfähigkeit**. Wir schauen, dass die App stabil bleibt, und **refactoren den Code gemeinsam**, damit nichts unnötig aufgebläht wird. Und falls nicht, setzen wir #383 natürlich genauso gerne direkt für dich um. 🦀</pre>
     </section>
 
   </main>
@@ -815,17 +909,19 @@ Super, das funktioniert! Bitte erstelle jetzt einen neuen Branch, führe alle Pr
     });
 
     // =========================================================================
-    // 3. INTERACTIVE PROMPT BUILDER (STEP 2 & STEP 4)
+    // 3. INTERACTIVE PROMPT BUILDER (STEP 2, STEP 4, SAFETY NET & MARKDOWN)
     // =========================================================================
     let currentPreset = 'bug';
     const issueInput = document.getElementById('issue-num-input');
     const generatedPromptEl = document.getElementById('generated-prompt-text');
     const finalPrPromptEl = document.getElementById('final-pr-prompt-text');
     const simTypedPromptEl = document.getElementById('sim-typed-prompt');
+    const safetyIssuePlaceholder = document.getElementById('safety-issue-placeholder');
+    const mdSource = document.getElementById('markdown-source');
 
     const PRESET_TEMPLATES = {
       bug: (num) => `Bitte schau dir Issue #${num} in GiroCrab/GiroCrab an. Suche die Ursache im Code, behebe den Fehler gemäß CLAUDE.md, führe die Tests (swift test / cargo test) aus und starte die App danach im sicheren Demo-Modus (GIROCRAB_DEMO_SEED=1 swift run --package-path GiroCrabApp GiroCrabMac), damit ich es ausprobieren kann.`,
-      ui: (num) => `Bitte setze den UI-Wunsch aus Issue #${num} in GiroCrab/GiroCrab gemäß CLAUDE.md (inkl. .appFont und Localizable.xcstrings) um. Führe danach swift test aus und starte die App im Demo-Modus (GIROCRAB_DEMO_SEED=1 swift run --package-path GiroCrabApp GiroCrabMac), damit ich mir die Ansicht anschauen kann.`,
+      ui: (num) => `Bitte setze den UI-Wunsch aus Issue #${num} in GiroCrab/GiroCrab gemäß CLAUDE.md (inkl. .appFont, .sensitive und Localizable.xcstrings) um. Führe danach swift test aus und starte die App im Demo-Modus (GIROCRAB_DEMO_SEED=1 swift run --package-path GiroCrabApp GiroCrabMac), damit ich mir die Ansicht anschauen kann.`,
       docs: (num) => `Bitte ergänze den Hinweis / Hilfetext aus Issue #${num} in GiroCrab/GiroCrab (inkl. Deutsch & Englisch in Localizable.xcstrings), prüfe scripts/xcstrings.py check und zeige mir das Ergebnis im Demo-Modus (GIROCRAB_DEMO_SEED=1 swift run --package-path GiroCrabApp GiroCrabMac).`
     };
 
@@ -835,13 +931,45 @@ Super, das funktioniert! Bitte erstelle jetzt einen neuen Branch, führe alle Pr
       generatedPromptEl.textContent = promptText;
       simTypedPromptEl.textContent = `"${promptText}"`;
       finalPrPromptEl.textContent = `Super, das funktioniert! Bitte erstelle jetzt einen neuen Branch, führe alle Prüfskripte laut CLAUDE.md aus, committe die Änderung und öffne einen Pull Request auf GitHub für Issue #${num}.`;
+      safetyIssuePlaceholder.textContent = `#${num}`;
+
+      mdSource.textContent = `### 🦀 In 4 Schritten zum eigenen Pull Request mit KI – auch ohne Programmierkenntnisse
+
+Du hast einen Fehler gefunden oder wünschst dir eine Funktion in **GiroCrab**, programmierst aber selbst kein \`Swift\` oder \`Rust\`? **Kein Problem.**
+Wenn du ein KI-Abo (z. B. **Claude Pro / Claude Code** oder **Cursor**) hast, kannst du deinen Wunsch in wenigen Minuten selbst ausprobieren. In unserem Repository liegt eine fertige \`CLAUDE.md\`-Datei, die deiner KI automatisch unsere gesamte Architektur, alle Regeln und die Selbsttests erklärt.
+
+#### 1️⃣ GiroCrab öffnen & Claude Code starten
+- **In der Claude Desktop App (Reiter „Code“) oder Cursor:** Klicke auf *Repository klonen* und gib \`https://github.com/GiroCrab/GiroCrab.git\` ein.
+- **Oder im macOS Terminal:**
+  \`\`\`zsh
+  gh repo fork GiroCrab/GiroCrab --clone && cd GiroCrab && claude
+  \`\`\`
+  *(Claude liest beim Start automatisch unsere \`CLAUDE.md\`.)*
+
+#### 2️⃣ Deinen Wunsch auf Deutsch eingeben
+Kopiere einfach diesen Auftrag in Claude Code:
+\`\`\`text
+${promptText}
+\`\`\`
+
+#### 3️⃣ Im sicheren Demo-Tresor anschauen
+GiroCrab öffnet sich automatisch mit reinen **Beispieldaten** (\`GIROCRAB_DEMO_SEED=1\` – deine echten Kontodaten werden nicht berührt). Klicke deine neue Funktion an. Wenn du noch etwas ändern möchtest, schreib es Claude einfach auf Deutsch (z. B. *„Mach den Button noch etwas breiter“*).
+
+#### 4️⃣ Pull Request mit 1 Satz absenden
+Wenn im Demo-Modus alles passt, brauchst du keine Git-Befehle zu kennen – schreib einfach:
+\`\`\`text
+Super, das funktioniert. Bitte erstelle jetzt einen neuen Branch, führe alle Prüfskripte laut CLAUDE.md aus, committe die Änderung und öffne einen Pull Request auf GitHub für Issue #${num}.
+\`\`\`
+
+**Und das Wichtigste – du kannst dabei absolut nichts kaputt machen:**
+Falls du so einen Pull Request mal testweise einreichst, prüfen unsere automatisierten Tests und wir als Maintainer vor dem Einbau alles gründlich auf **Sicherheit und Funktionsfähigkeit**. Wir schauen, dass die App stabil bleibt, und **refactoren den Code gemeinsam**, damit nichts unnötig aufgebläht wird. Und falls nicht, setzen wir #${num} natürlich genauso gerne direkt für dich um. 🦀`;
     }
 
     document.querySelectorAll('.preset-btn').forEach((btn) => {
       btn.addEventListener('click', () => {
         currentPreset = btn.getAttribute('data-preset');
         if (currentPreset === 'bug') issueInput.value = '383';
-        if (currentPreset === 'ui') issueInput.value = '388';
+        if (currentPreset === 'ui') issueInput.value = '218';
         if (currentPreset === 'docs') issueInput.value = '344';
 
         document.querySelectorAll('.preset-btn').forEach((b) => {
@@ -873,7 +1001,7 @@ Super, das funktioniert! Bitte erstelle jetzt einen neuen Branch, führe alle Pr
       1: { title: 'claude — GiroCrab (Schritt 1/4)', badge: 'CLAUDE.md geladen', badgeClass: 'bg-emerald-500/20 text-emerald-300 border-emerald-400/30' },
       2: { title: 'claude — Prompt läuft (Schritt 2/4)', badge: 'KI baut & testet…', badgeClass: 'bg-amber-500/20 text-amber-300 border-amber-400/30' },
       3: { title: 'GiroCrabMac — Demo-Tresor (Schritt 3/4)', badge: 'Demo-Modus aktiv', badgeClass: 'bg-sky-500/20 text-sky-300 border-sky-400/30' },
-      4: { title: 'gh pr create — Fertig! (Schritt 4/4)', badge: 'PR #383 geöffnet 🎉', badgeClass: 'bg-emerald-500 text-slate-950 font-extrabold' }
+      4: { title: 'gh pr create — Geprüft & Sicher! (Schritt 4/4)', badge: 'Maintainer-Schutz 🛡️', badgeClass: 'bg-emerald-500 text-slate-950 font-extrabold' }
     };
 
     function setActiveStep(stepNum) {
@@ -972,7 +1100,6 @@ Super, das funktioniert! Bitte erstelle jetzt einen neuen Branch, führe alle Pr
     });
 
     // Copy Markdown Guide Buttons
-    const mdSource = document.getElementById('markdown-source');
     document.getElementById('btn-copy-md-top').addEventListener('click', () => {
       copyTextToClipboard(mdSource.textContent, 'GitHub-Markdown in die Zwischenablage kopiert!');
     });
