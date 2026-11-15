@@ -42,6 +42,7 @@ footer a{color:var(--muted);margin-right:1rem}
 .note{color:var(--muted);font-size:.85rem;margin:1rem 0 0}
 .feature{display:grid;gap:2rem;grid-template-columns:1fr 1.2fr;align-items:center;padding:2rem 0}
 .feature.flip .text{order:2}
+.feature.text-only{grid-template-columns:1fr}
 .feature h3{font-size:1.4rem;margin:0 0 .6rem}
 .feature p{color:var(--muted);margin:0 0 .8rem}
 .feature ul{margin:0;padding-left:1.2rem}.feature li{margin:.35rem 0}
@@ -144,11 +145,6 @@ header {
   align-items: center;
   justify-content: space-between;
   margin-bottom: 0.75rem;
-}
-.stars {
-  color: #ff9f0a;
-  font-size: 0.95rem;
-  letter-spacing: 0.08em;
 }
 .quote-tag {
   font-size: 0.72rem;

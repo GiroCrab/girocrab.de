@@ -5,9 +5,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="referrer" content="no-referrer">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'">
-<title>GiroCrab – Freie Banking-App für Mac, iPhone &amp; iPad (MoneyMoney-Alternative)</title>
-<meta name="description" content="GiroCrab v0.7.0 ist die freie, native Banking-App für Mac, iPhone &amp; iPad ohne Abo: Direktes FinTS/HBCI, MoneyMoney-Import (SQLite/XML/CSV), Trade Republic &amp; Scalable Capital, 100 % lokal verschlüsselt (Open Source).">
-<meta name="keywords" content="GiroCrab, Online-Banking macOS, MoneyMoney Alternative, Banking App Mac ohne Abo, FinTS HBCI Mac, Open Source Banking macOS, Scalable Capital Mac, Trade Republic Mac, SEPA Überweisung Mac">
+<title>GiroCrab – Freie Open-Source-Banking-App für Mac, iPhone &amp; iPad</title>
+<meta name="description" content="GiroCrab v0.7.0 ist die freie, native Open-Source-Banking-App für Mac, iPhone &amp; iPad: Direktes FinTS/HBCI, Datenimport, Trade Republic &amp; Scalable Capital, 100 % lokal verschlüsselt (Open Source).">
 <meta name="robots" content="index, follow">
 <meta name="color-scheme" content="light dark">
 <link rel="canonical" href="https://girocrab.de/">
@@ -15,7 +14,7 @@
 <meta property="og:locale" content="de_DE">
 <meta property="og:site_name" content="GiroCrab">
 <meta property="og:title" content="GiroCrab – Die freie, native Banking-App für Mac, iPhone &amp; iPad">
-<meta property="og:description" content="Freie Open-Source-Alternative für den Mac: FinTS/HBCI, direkter MoneyMoney-Datenbank-Import, Scalable Capital &amp; Trade Republic. 100 % lokal verschlüsselt.">
+<meta property="og:description" content="Freie Open-Source-Banking-App für Mac, iPhone &amp; iPad: FinTS/HBCI, Datenimport, Scalable Capital &amp; Trade Republic. 100 % lokal verschlüsselt.">
 <meta property="og:url" content="https://girocrab.de/">
 <meta property="og:image" content="https://girocrab.de/og-logo-v2.png">
 <meta property="og:image:alt" content="GiroCrab – Native Banking-App für macOS &amp; iOS mit App-Icon und Übersicht-Screenshot">
@@ -24,7 +23,7 @@
 <meta property="og:image:type" content="image/png">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="GiroCrab – Freie Banking-App für Mac, iPhone &amp; iPad">
-<meta name="twitter:description" content="100 % lokal, FinTS 3.0, direkter MoneyMoney-Import, Rust + SwiftUI.">
+<meta name="twitter:description" content="100 % lokal, FinTS 3.0, Datenimport, Rust + SwiftUI.">
 <meta name="twitter:image" content="https://girocrab.de/og-logo-v2.png">
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
@@ -40,13 +39,13 @@
       "name": "GiroCrab",
       "operatingSystem": "macOS 14+, iOS 17+, iPadOS 17+",
       "applicationCategory": "FinanceApplication",
-      "softwareVersion": "0.6.1",
+      "softwareVersion": "0.6.3",
       "license": "https://www.gnu.org/licenses/gpl-3.0.html",
       "url": "https://girocrab.de/",
       "downloadUrl": "https://github.com/GiroCrab/GiroCrab/releases/latest/download/GiroCrab-macOS-arm64.dmg",
       "installUrl": "https://testflight.apple.com/join/KBmvKVpT",
       "image": "https://girocrab.de/img/app-icon.png",
-      "description": "Native, datensparsame Open-Source-Banking-App für Mac, iPhone und iPad mit FinTS/HBCI, MoneyMoney-Import sowie Unterstützung für comdirect, Scalable Capital, Trade Republic, bunq und PayPal.",
+      "description": "Native, datensparsame Open-Source-Banking-App für Mac, iPhone und iPad mit FinTS/HBCI, Datenimport sowie Unterstützung für comdirect, Scalable Capital, Trade Republic, bunq und PayPal.",
       "offers": {
         "@type": "Offer",
         "price": "0.00",
@@ -61,15 +60,15 @@
           "name": "Unterstützt GiroCrab meine Bank?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Alle deutschen Banken mit Standard-FinTS/HBCI (3.0, PIN/TAN) wie Sparkassen, Volks- und Raiffeisenbanken, ING, DKB oder Sparda-Banken lassen sich direkt anbinden. Zusätzlich gibt es dedizierte Konnektoren für Scalable Capital, Trade Republic, comdirect, bunq, PayPal und Enable Banking (PSD2)."
+            "text": "Banken mit FinTS 3.0 (PIN/TAN) lassen sich grundsätzlich über BLZ und FinTS-URL anbinden. Mit echten Konten getestet sind bisher die in der Tabelle als verifiziert markierten Institute; bei anderen Banken kann es Einschränkungen geben."
           }
         },
         {
           "@type": "Question",
-          "name": "Wie funktioniert der Umstieg von MoneyMoney zu GiroCrab?",
+          "name": "Kann ich vorhandene Daten übernehmen?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "GiroCrab liest auf Wunsch direkt und streng schreibgeschützt (read-only) die bestehende MoneyMoney.sqlite-Datenbank oder XML-/CSV-Exporte ein und übernimmt Konten, Kategorienbäume, Notizen und mehrjährige Umsatzhistorien ohne Duplikate."
+            "text": "Ja. GiroCrab kann Umsätze, Kategorien und Notizen aus unterstützten Exportdateien oder Datenbanken einlesen (streng lesend) und prüft dabei auf Dubletten. Eine Vorschau zeigt vor dem Import, was erkannt wurde."
           }
         },
         {
@@ -104,7 +103,7 @@
 <section class="hero"><div class="wrap">
 <img class="logo reveal" src="img/app-icon.png" alt="GiroCrab-App-Icon" width="112" height="112">
 <h1 class="reveal d1">GiroCrab</h1>
-<p class="tagline reveal d2"><strong>Die freie, native Banking-App für Mac, iPhone &amp; iPad.</strong><br>FinTS 3.0 · PSD2 · SEPA · MoneyMoney-Import — 100&nbsp;% lokal verschlüsselt, ohne Abo, ohne Cloud-Zwang.</p>
+<p class="tagline reveal d2"><strong>Die freie, native Banking-App für Mac, iPhone &amp; iPad.</strong><br>FinTS 3.0 · PSD2 · SEPA · Datenimport — 100&nbsp;% lokal verschlüsselt, kostenlos, Daten bleiben auf deinem Gerät.</p>
 <div class="cta reveal d3">
 <div class="cta-col"><a class="cta-btn" href="https://github.com/GiroCrab/GiroCrab/releases/latest/download/GiroCrab-macOS-arm64.dmg"><img src="img/download-macos.svg" alt="Für macOS laden – v0.7.0 · Apple Silicon (.dmg)" width="260" height="56"></a>
 <p class="brew">oder per Homebrew: <code title="Klicken zum Markieren, dann kopieren">brew install --cask GiroCrab/GiroCrab/girocrab</code></p></div>
@@ -121,12 +120,12 @@
 <p class="note">Alle Screenshots zeigen ausschließlich erfundene Demo-Daten.</p>
 </div></section>
 <section id="neu"><div class="wrap">
-<h2>Neu in v0.6.1</h2>
+<h2>Neu in v0.6.3</h2>
 <div class="grid">
-<div class="card"><h3>📲 iPhone &amp; iPad via TestFlight</h3><p>Die iOS-App installierst und aktualisierst du jetzt direkt per Apple-TestFlight-Einladung – kostenlos, ohne Xcode.</p></div>
-<div class="card"><h3>⚡ Kategorisieren in &lt; 1 ms</h3><p>Optimistische Updates und neue Indizes halten selbst Tresore mit über 30.000 Buchungen flüssig.</p></div>
-<div class="card"><h3>🧙 Neue Assistenten</h3><p>„Bank hinzufügen“ und der MoneyMoney-Import mit Salden-Abgleich folgen den Apple-Richtlinien.</p></div>
-<div class="card"><h3>🏦 Mehr Banken &amp; Währungen</h3><p>Enable Banking (PSD2), Multi-Währungs-Konten sowie Vormerkungen bei comdirect und bunq.</p></div>
+<div class="card"><h3>🏦 FinTS-Fallback bei Fehler 9010</h3><p>Lehnt die Bank die Dialoginitialisierung ab, versucht GiroCrab es einmalig im Einschritt-Verfahren und merkt sich die Präferenz.</p></div>
+<div class="card"><h3>🧾 SEPA-Referenzen gespeichert</h3><p>End-to-End-ID, Mandatsreferenz und Gläubiger-ID werden bankunabhängig am Umsatz gespeichert und in der Buchung aufklappbar angezeigt.</p></div>
+<div class="card"><h3>🔄 comdirect &amp; bunq</h3><p>comdirect-Umsätze blättern korrekt weiter, die PostBox lädt mehr Dokumente; bunq erkennt externe Sparkonten.</p></div>
+<div class="card"><h3>🏷️ Kategorien</h3><p>Eine manuell gesetzte Kategorie oder ein ETF-Sparplan hat Vorrang vor der Eigenkonto-IBAN-Heuristik.</p></div>
 </div>
 </div></section>
 <section id="features"><div class="wrap">
@@ -146,7 +145,7 @@
 <div class="feature flip">
 <div class="text">
 <h3>Lokale Sicherheit &amp; Datenschutz</h3>
-<p>Deine Finanzdaten gehören dir. Es gibt keinen Entwickler-Server, keinen Cloud-Zwang und kein Konto bei uns.</p>
+<p>Deine Finanzdaten gehören dir. Es gibt keinen Entwickler-Server, keine Cloud-Pflicht und kein Konto bei uns.</p>
 <ul>
 <li>Verschlüsselter SQLCipher-Tresor (AES-256), Schlüssel im lokalen macOS-Schlüsselbund</li>
 <li>Offiziell mit Apple Developer ID signiert und von Apple notarisiert</li>
@@ -159,78 +158,49 @@
 <div class="feature">
 <div class="text">
 <h3>Organisation &amp; Auswertungen</h3>
-<p>Ordnung in Umsätzen, Kategorien und Krediten – mit vollem Komfort für MoneyMoney-Umsteiger.</p>
+<p>Ordnung in Umsätzen, Kategorien und Krediten – inklusive Datenübernahme.</p>
 <ul>
 <li>Notizen direkt per Doppelklick oder Return bearbeiten</li>
 <li>Regeln und automatische Kategorisierung samt Händler-Erkennung</li>
 <li>Kreditverlauf mit Tilgungsbalken und verknüpften Raten</li>
-<li>MoneyMoney-Datenbank-Import: Konten, Kategorien und Historie, streng lesend (read-only), ohne Duplikate</li>
+<li>Datenübernahme aus unterstützten Exportdateien und Datenbanken – nur lesend, ohne Duplikate</li>
 </ul>
 </div>
 <img src="img/screenshots/loan-progress.png" alt="Immobilien-Darlehen mit Tilgungsbalken, 27 % getilgt" width="2940" height="1698" loading="lazy">
 </div>
-<div class="feature flip">
+<div class="feature text-only">
 <div class="text">
-<h3>Nahtloser Umzug von MoneyMoney</h3>
-<p>Mehrjährige Historien, Kategorienbaum und Notizen übernimmst du direkt aus der <code>MoneyMoney.sqlite</code> oder per CSV/XML-Export – in rund 60 Sekunden.</p>
+<h3>Vorhandene Daten übernehmen</h3>
+<p>Buchungshistorie, Kategorienbaum und Notizen lassen sich aus unterstützten Exportdateien oder Datenbanken übernehmen (nur lesend). Eine Vorschau zeigt vor dem Import, was erkannt wurde. Die Dauer hängt vom Datenumfang ab; Bankzugänge richtest du danach in GiroCrab neu ein.</p>
 </div>
-<img src="img/screenshots/moneymoney-db-import.png" alt="MoneyMoney-Datenbank-Import in GiroCrab: 6 Konten, 6.790 Buchungen" width="1800" height="1678" loading="lazy">
+<!-- TODO(Andreas): bitte prüfen: Screenshot des Import-Assistenten ohne Fremdmarke neu aufnehmen (alter Screenshot entfernt) -->
 </div>
 </div></section>
 <section id="community"><div class="wrap">
 <div class="section-head">
   <span class="eyebrow">Community &amp; Feedback</span>
+  <!-- TODO(Andreas): bitte prüfen: Ist die Überschrift „aus den ersten 48 Stunden“ noch belegbar (Zeitraum der Zitate)? -->
   <h2>Stimmen aus den ersten 48 Stunden</h2>
-  <p class="section-lead">Rückmeldungen von ersten Testern, MoneyMoney-Umsteigern und Mitstreitern:</p>
+  <p class="section-lead">Rückmeldungen von ersten Testern und Mitstreitern</p>
 </div>
 <div class="grid quotes-grid">
   <blockquote class="card quote-card">
     <div>
-      <div class="quote-top"><span class="stars" aria-label="5 von 5 Sternen">★★★★★</span><span class="quote-tag">Sicherheit</span></div>
-      <h4>„Vertraue öffentlichem Quellcode wesentlich mehr“</h4>
+      <div class="quote-top"><span class="quote-tag">Sicherheit</span></div>
+      <h4>Offener Quellcode schafft Vertrauen</h4>
       <p>„Das Programm macht jetzt schon einen guten Eindruck und ich bin mir ziemlich sicher, dass ich bald umsteigen werde. Gerade bezüglich der Sicherheit vertraue ich einer selbst kompilierten Anwendung mit öffentlichem Quellcode wesentlich mehr als einer Closed-Source-App.“</p>
     </div>
     <cite><span class="dot"></span>Kommentar auf ifun.de</cite>
+    <!-- TODO(Andreas): bitte prüfen: Quell-Link und Datum dieses Zitats ergänzen -->
   </blockquote>
   <blockquote class="card quote-card">
     <div>
-      <div class="quote-top"><span class="stars" aria-label="5 von 5 Sternen">★★★★★</span><span class="quote-tag">Umsteiger</span></div>
-      <h4>„Würdiger Nachfolger seit 2014“</h4>
-      <p>„Das klingt sehr, sehr vielversprechend! Ich wünsche dir viel Erfolg. Bin MoneyMoney-Nutzer seit 2014 und würde mich über einen würdigen Nachfolger unnormal freuen.“</p>
-    </div>
-    <cite><span class="dot"></span>Kommentar auf ifun.de</cite>
-  </blockquote>
-  <blockquote class="card quote-card">
-    <div>
-      <div class="quote-top"><span class="stars" aria-label="5 von 5 Sternen">★★★★★</span><span class="quote-tag">Ohne Abo</span></div>
-      <h4>„Offener Widerstand gegen Abo-Zwang“</h4>
-      <p>„Danke für deine Initiative mit GiroCrab. Ich war vom Abo-Wechsel echt enttäuscht. Diese Art von offenem Widerstand finde ich gut – bleibt dran und alles Gute!“</p>
-    </div>
-    <cite><span class="dot"></span>Direktes Feedback per E-Mail</cite>
-  </blockquote>
-  <blockquote class="card quote-card">
-    <div>
-      <div class="quote-top"><span class="stars" aria-label="5 von 5 Sternen">★★★★★</span><span class="quote-tag">Open Source</span></div>
+      <div class="quote-top"><span class="quote-tag">Open Source</span></div>
       <h4>„Lösung, die der Gemeinschaft dient“</h4>
       <p>„MEGA – sowas feier ich :-) Ich hoffe, die Entwickler bekommen Support – in welcher Form auch immer – und es gibt eine Lösung, die der Gemeinschaft dient.“</p>
     </div>
     <cite><span class="dot"></span>Kommentar auf ifun.de</cite>
-  </blockquote>
-  <blockquote class="card quote-card">
-    <div>
-      <div class="quote-top"><span class="stars" aria-label="5 von 5 Sternen">★★★★★</span><span class="quote-tag">Praxistest</span></div>
-      <h4>„Import funktioniert prima“</h4>
-      <p>„Super. Der Import von MoneyMoney funktioniert prima. Macht einen tollen Eindruck – auf jeden Fall Chapeau für die bisherige Leistung!“</p>
-    </div>
-    <cite><span class="dot"></span>Tester-Feedback auf ifun.de</cite>
-  </blockquote>
-  <blockquote class="card quote-card">
-    <div>
-      <div class="quote-top"><span class="stars" aria-label="5 von 5 Sternen">★★★★★</span><span class="quote-tag">Datenbank-Import</span></div>
-      <h4>„21 Konten &amp; 9 Depots auf den Cent genau“</h4>
-      <p>„Mit dem direkten Datenbank-Import stimmen bei meiner MoneyMoney-Datenbank alle 21 Konten inklusive 9 Depots auf den Cent genau.“</p>
-    </div>
-    <cite><span class="dot"></span>Rückmeldung auf GitHub</cite>
+    <!-- TODO(Andreas): bitte prüfen: Quell-Link und Datum dieses Zitats ergänzen -->
   </blockquote>
 </div>
 </div></section>
@@ -243,10 +213,10 @@
 </div></section>
 <section id="faq"><div class="wrap">
 <h2>Häufige Fragen</h2>
-<details><summary id="banken">Unterstützt GiroCrab meine Bank?</summary><p>Alle deutschen Banken mit Standard-FinTS/HBCI (3.0, PIN/TAN) – darunter Sparkassen, Volks- und Raiffeisenbanken, ING, DKB oder Sparda-Banken – lassen sich über BLZ und FinTS-URL anbinden. <!-- sync:connectors:start -->
+<details><summary id="banken">Unterstützt GiroCrab meine Bank?</summary><p>Banken mit FinTS 3.0 (PIN/TAN) lassen sich grundsätzlich über BLZ und FinTS-URL anbinden. Mit echten Konten getestet sind bisher die in der Tabelle als verifiziert markierten Institute; bei anderen Banken kann es Einschränkungen geben. <!-- sync:connectors:start -->
 <div class="matrix-wrap"><table class="bank-matrix"><thead><tr><th scope="col">Bank</th><th scope="col">Schnittstelle</th><th scope="col">Umsätze</th><th scope="col">Salden</th><th scope="col">Depot</th><th scope="col">Überweisung</th><th scope="col">Dauerauftrag</th><th scope="col">PDF/Postfach</th><th scope="col">Status</th></tr></thead><tbody><tr class="status-verified"><td>1822direkt</td><td>FinTS 3.0</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>–</td><td>✓</td><td>✅ Verifiziert</td></tr><tr class="status-verified"><td>Consorsbank</td><td>FinTS 3.0</td><td>✓</td><td>✓</td><td>✓</td><td>–</td><td>–</td><td>–</td><td>✅ Verifiziert</td></tr><tr class="status-verified"><td>FinTS-Bank (BLZ + URL)</td><td>FinTS 3.0</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>–</td><td>✓</td><td>✅ Verifiziert</td></tr><tr class="status-testingwanted"><td>ING</td><td>FinTS 3.0</td><td>✓</td><td>✓</td><td>–</td><td>–</td><td>–</td><td>–</td><td>🧪 Test gesucht <a href="https://github.com/GiroCrab/GiroCrab/issues/313">#313</a></td></tr><tr class="status-verified"><td>Volksbank Kassel Göttingen</td><td>FinTS 3.0</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>–</td><td>✓</td><td>✅ Verifiziert</td></tr><tr class="status-verified"><td>bunq</td><td>REST-API</td><td>✓</td><td>✓</td><td>–</td><td>✓</td><td>–</td><td>✓</td><td>✅ Verifiziert</td></tr><tr class="status-verified"><td>comdirect</td><td>REST-API</td><td>✓</td><td>✓</td><td>✓</td><td>–</td><td>–</td><td>✓</td><td>✅ Verifiziert</td></tr><tr class="status-testingwanted"><td>Interactive Brokers (IBKR)</td><td>REST-API</td><td>✓</td><td>✓</td><td>✓</td><td>–</td><td>–</td><td>–</td><td>🧪 Test gesucht</td></tr><tr class="status-limited"><td>PayPal</td><td>REST-API</td><td>✓</td><td>✓</td><td>–</td><td>–</td><td>–</td><td>–</td><td>⚠️ Mit Einschränkungen <a href="https://github.com/GiroCrab/GiroCrab/issues/156">#156</a></td></tr><tr class="status-testingwanted"><td>Scalable Capital</td><td>REST-API</td><td>✓</td><td>✓</td><td>✓</td><td>–</td><td>–</td><td>–</td><td>🧪 Test gesucht <a href="https://github.com/GiroCrab/GiroCrab/issues/45">#45</a></td></tr><tr class="status-verified"><td>Amazon Visa</td><td>Enable Banking (PSD2)</td><td>✓</td><td>✓</td><td>–</td><td>–</td><td>–</td><td>–</td><td>✅ Verifiziert</td></tr><tr class="status-verified"><td>American Express</td><td>Enable Banking (PSD2)</td><td>✓</td><td>✓</td><td>–</td><td>–</td><td>–</td><td>–</td><td>✅ Verifiziert</td></tr><tr class="status-testingwanted"><td>Revolut</td><td>Enable Banking (PSD2)</td><td>✓</td><td>✓</td><td>–</td><td>–</td><td>–</td><td>–</td><td>🧪 Test gesucht <a href="https://github.com/GiroCrab/GiroCrab/issues/289">#289</a></td></tr><tr class="status-limited"><td>Weitere Banken per PSD2 (Enable Banking)</td><td>Enable Banking (PSD2)</td><td>✓</td><td>✓</td><td>–</td><td>–</td><td>–</td><td>–</td><td>⚠️ Mit Einschränkungen</td></tr><tr class="status-testingwanted"><td>Amazon Bestellungen</td><td>Web-Portal</td><td>✓</td><td>–</td><td>–</td><td>–</td><td>–</td><td>–</td><td>🧪 Test gesucht</td></tr><tr class="status-testingwanted"><td>easybank (ehem. Barclays)</td><td>Web-Portal</td><td>✓</td><td>✓</td><td>–</td><td>–</td><td>–</td><td>✓</td><td>🧪 Test gesucht</td></tr><tr class="status-verified"><td>FNZ Bank</td><td>Web-Portal</td><td>✓</td><td>✓</td><td>✓</td><td>–</td><td>–</td><td>✓</td><td>✅ Verifiziert</td></tr><tr class="status-verified"><td>quirion</td><td>Web-Portal</td><td>✓</td><td>✓</td><td>✓</td><td>–</td><td>–</td><td>✓</td><td>✅ Verifiziert</td></tr><tr class="status-limited"><td>Trade Republic</td><td>Web-Portal</td><td>✓</td><td>✓</td><td>–</td><td>–</td><td>–</td><td>✓</td><td>⚠️ Mit Einschränkungen</td></tr></tbody></table></div><p class="matrix-note">Weitere deutsche Banken mit FinTS 3.0 (PIN/TAN) lassen sich über BLZ und FinTS-URL anbinden (2.010 Institute im FinTS-Verzeichnis); europäische PSD2-Banken über Enable Banking mit einer eigenen, kostenlosen Anwendung.</p><p class="matrix-note"><small>✅ mit echten Konten getestet · 🧪 implementiert, Rückmeldungen aus der Praxis willkommen (Issue verlinkt) · ⚠️ bekannte Einschränkungen · ✓ umgesetzt · – nicht umgesetzt. Bei FinTS hängen Depot und PDF-Kontoauszüge vom Angebot der jeweiligen Bank ab.</small></p>
 <!-- sync:connectors:end --></p></details>
-<details><summary>Wie funktioniert der Umstieg von MoneyMoney?</summary><p>GiroCrab kann deine bestehende <code>MoneyMoney.sqlite</code>-Datenbank direkt (streng lesend) öffnen oder XML-/CSV-Exporte einlesen. Konten, Kategorienhierarchien, Notizen und deine gesamte Buchungshistorie werden samt Dubletten-Prüfung übernommen.</p></details>
+<details><summary>Kann ich vorhandene Daten übernehmen?</summary><p>Ja. GiroCrab kann Umsätze, Kategorien und Notizen aus unterstützten Exportdateien oder Datenbanken einlesen (streng lesend) und prüft dabei auf Dubletten. Eine Vorschau zeigt vor dem Import, was erkannt wurde.</p></details>
 <details><summary>Kostet GiroCrab etwas?</summary><p>Nein. GiroCrab ist 100 % kostenlos und quelloffen (GPL-3.0-or-later), ohne Abo und ohne Werbung.</p></details>
 <details><summary>Wo liegen meine Zugangsdaten?</summary><p>Ausschließlich verschlüsselt auf deinem Mac: im SQLCipher-Tresor, dessen Schlüssel im macOS-Schlüsselbund liegt. Es gibt keinen Server, an den sie gesendet werden.</p></details>
 </div></section>
@@ -272,6 +242,7 @@
 <footer><div class="wrap">
 <div><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a></div>
 <div>Keine Cookies · kein Tracking · keine externen Ressourcen</div>
+<div>Genannte Marken von Banken und Zahlungsdiensten gehören ihren jeweiligen Inhabern. GiroCrab ist unabhängig von diesen Anbietern.</div>
 </div></footer>
 </body>
 </html>
