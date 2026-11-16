@@ -97,7 +97,7 @@
 <input type="radio" name="mode" id="m-light" class="mode-radio" aria-label="Hellmodus">
 <input type="radio" name="mode" id="m-dark" class="mode-radio" aria-label="Dunkelmodus">
 <header><div class="wrap"><a class="brand" href="/">GiroCrab</a>
-<nav><a href="#neu">Neu</a><a href="#features">Features</a><a href="#banken">Banken</a><a href="#mitbauen">Mitbauen</a><a href="#community">Community</a><a href="#faq">FAQ</a><a href="#links">Links</a><a class="gh" href="https://github.com/GiroCrab/GiroCrab" rel="noopener">GitHub<span class="gh-badge">Open Source · GPL-3.0</span></a></nav>
+<nav><a href="#neu">Neu</a><a href="#features">Features</a><a href="#banken">Banken</a><a href="#mitbauen">Mitbauen</a><a href="#community">Community</a><a href="#faq">FAQ</a><a href="#links">Links</a><a href="presse.html">Presse</a><a class="gh" href="https://github.com/GiroCrab/GiroCrab" rel="noopener">GitHub<span class="gh-badge">Open Source · GPL-3.0</span></a></nav>
 <div class="mode-switch" role="group" aria-label="Darstellung der Vorschau"><label for="m-light">☀︎ Hell</label><label for="m-dark">☾ Dunkel</label></div></div></header>
 <main>
 <section class="hero"><div class="wrap">
@@ -118,6 +118,17 @@
 </div>
 </div>
 <p class="note">Alle Screenshots zeigen ausschließlich erfundene Demo-Daten.</p>
+</div></section>
+<section id="start"><div class="wrap">
+<div class="section-head">
+  <span class="eyebrow">Loslegen</span>
+  <h2>In wenigen Minuten startklar</h2>
+</div>
+<div class="grid">
+<div class="card"><h3>1. Lokaler Tresor</h3><p>GiroCrab legt beim ersten Start einen verschlüsselten SQLCipher-Tresor auf deinem Gerät an. Kein Konto, keine Anmeldung.</p></div>
+<div class="card"><h3>2. Banken verbinden oder Dateien importieren</h3><p>Richte Bankzugänge per FinTS oder PSD2 ein oder übernimm Umsätze aus Exportdateien.</p></div>
+<div class="card"><h3>3. Lokal auswerten</h3><p>Kategorien, Regeln, Vermögensübersicht und Kreditverlauf werden auf deinem Gerät berechnet.</p></div>
+</div>
 </div></section>
 <section id="neu"><div class="wrap">
 <h2>Neu in v0.7.5</h2>
@@ -175,6 +186,30 @@
 <p>Buchungshistorie, Kategorienbaum und Notizen lassen sich aus unterstützten Exportdateien oder Datenbanken übernehmen (nur lesend). Eine Vorschau zeigt vor dem Import, was erkannt wurde. Die Dauer hängt vom Datenumfang ab; Bankzugänge richtest du danach in GiroCrab neu ein.</p>
 </div>
 <!-- TODO(Andreas): bitte prüfen: Screenshot des Import-Assistenten ohne Fremdmarke neu aufnehmen (alter Screenshot entfernt) -->
+</div>
+</div></section>
+<section id="schnittstellen"><div class="wrap">
+<div class="section-head">
+  <span class="eyebrow">Schnittstellen</span>
+  <h2>Unterstützte Banken &amp; Schnittstellen</h2>
+  <p class="section-lead">Welche Institute konkret getestet sind, zeigt die Tabelle in den <a href="#banken">häufigen Fragen</a>.</p>
+</div>
+<div class="grid">
+<div class="card"><h3>FinTS / HBCI</h3><p>Direkte Anbindung per FinTS 3.0 mit PIN/TAN, inklusive SEPA-Überweisungen.</p></div>
+<div class="card"><h3>PSD2 &amp; direkte Konnektoren</h3><p>Zugang über Enable Banking (PSD2) sowie native Konnektoren für ausgewählte Banken und Broker.</p></div>
+<div class="card"><h3>Datei- &amp; Datenbank-Import</h3><p>MT940, CAMT.053, CSV und unterstützte Datenbanken – nur lesend und mit Dublettenprüfung.</p></div>
+<div class="card"><h3>Offline-Konten</h3><p>Konten ohne Bankanbindung, Kredite und Sachwerte wie Gold oder Immobilien lassen sich manuell führen.</p></div>
+</div>
+</div></section>
+<section id="sicherheit"><div class="wrap">
+<div class="section-head">
+  <span class="eyebrow">Vertrauen</span>
+  <h2>Sicherheit &amp; Vertrauen</h2>
+</div>
+<div class="grid">
+<div class="card"><h3>100 % lokal</h3><p>Verschlüsselter SQLCipher-Tresor (AES-256), der Schlüssel liegt im Schlüsselbund deines Geräts. Es gibt keinen Entwickler-Server.</p></div>
+<div class="card"><h3>Keine Telemetrie</h3><p>Kein Tracking, keine Cookies. Problemberichte werden vor dem Teilen automatisch von persönlichen Daten bereinigt.</p></div>
+<div class="card"><h3>Open Source (GPLv3)</h3><p>Der gesamte Quellcode ist öffentlich auf GitHub und überprüfbar, lizenziert unter GPL-3.0-or-later.</p></div>
 </div>
 </div></section>
 <section id="mitbauen"><div class="wrap">
@@ -252,7 +287,7 @@
 </div></section>
 </main>
 <footer><div class="wrap">
-<div><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a></div>
+<div><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a><a href="presse.html">Presse</a></div>
 <div>Keine Cookies · kein Tracking · keine externen Ressourcen</div>
 <div>Genannte Marken von Banken und Zahlungsdiensten gehören ihren jeweiligen Inhabern. GiroCrab ist unabhängig von diesen Anbietern.</div>
 </div></footer>
