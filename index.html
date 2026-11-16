@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="referrer" content="no-referrer">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; img-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'">
 <title>GiroCrab – Freie Open-Source-Banking-App für Mac, iPhone &amp; iPad</title>
 <meta name="description" content="GiroCrab v0.7.5 ist die freie, native Open-Source-Banking-App für Mac, iPhone &amp; iPad: Direktes FinTS/HBCI, Datenimport, Trade Republic &amp; Scalable Capital, 100 % lokal verschlüsselt (Open Source).">
 <meta name="robots" content="index, follow">
@@ -27,8 +27,8 @@
 <meta name="twitter:image" content="https://girocrab.de/og-logo-v2.png">
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="shortcut icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=2">
+<link rel="shortcut icon" href="/favicon.ico?v=2">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="stylesheet" href="css/style.css">
 <script type="application/ld+json">
@@ -98,19 +98,19 @@
 <input type="radio" name="mode" id="m-light" class="mode-radio" aria-label="Hellmodus">
 <input type="radio" name="mode" id="m-dark" class="mode-radio" aria-label="Dunkelmodus">
 <header><div class="wrap"><a class="brand" href="/"><img src="img/favicon.png" alt="" width="24" height="24">GiroCrab</a>
-<nav><a href="#neu">Neu</a><a href="#features">Features</a><a href="#schnittstellen">Banken</a><a href="#mitbauen">Mitbauen</a><a href="#community">Community</a><a href="#faq">FAQ</a><a href="#links">Links</a><a href="presse.html">Presse</a><a class="gh" href="https://github.com/GiroCrab/GiroCrab" rel="noopener">GitHub<span class="gh-badge">Open Source · GPL-3.0</span></a></nav>
+<nav><a href="#start">Start</a><a href="#sicherheit">Sicherheit</a><a href="#neu">Neu</a><a href="#features">Features</a><a href="#banken">Banken</a><a href="#mitbauen">Mitbauen</a><a href="#community">Community</a><a href="#faq">FAQ</a><a href="#links">Links</a><a href="presse.html">Presse</a><a class="gh" href="https://github.com/GiroCrab/GiroCrab" rel="noopener">GitHub<span class="gh-badge">Open Source · GPL-3.0</span></a></nav>
 <div class="mode-switch" role="group" aria-label="Darstellung der Vorschau"><label for="m-light">☀︎ Hell</label><label for="m-dark">☾ Dunkel</label></div></div></header>
 <main>
 <section class="hero"><div class="wrap">
-<img class="logo reveal" src="img/app-icon.png" alt="GiroCrab-App-Icon" width="112" height="112">
 <h1 class="reveal d1">GiroCrab</h1>
-<p class="tagline reveal d2"><strong>Die freie, native Banking-App für Mac, iPhone &amp; iPad.</strong><br>FinTS 3.0 · PSD2 · SEPA · Datenimport — 100&nbsp;% lokal verschlüsselt, kostenlos, Daten bleiben auf deinem Gerät.</p>
+<p class="value reveal d1">Deine Finanzen. 100&nbsp;% lokal, verschlüsselt &amp; frei.</p>
+<p class="tagline reveal d2">Native Multibanking- und Finanzsoftware für macOS, iOS, iPadOS und Linux. FinTS 3.0, PSD2, SEPA &amp; offener Datenimport – ohne Cloud-Zwang, Tracking oder Abo (GPLv3).</p>
 <div class="cta reveal d3">
-<div class="cta-col"><a class="cta-btn" href="https://github.com/GiroCrab/GiroCrab/releases/latest/download/GiroCrab-macOS-arm64.dmg"><img src="img/download-macos.svg" alt="Für macOS laden – v0.7.5 · Apple Silicon (.dmg)" width="260" height="56"></a>
-<p class="brew">oder per Homebrew: <code title="Klicken zum Markieren, dann kopieren">brew install --cask GiroCrab/GiroCrab/girocrab</code></p></div>
+<a class="cta-btn" href="https://github.com/GiroCrab/GiroCrab/releases/latest/download/GiroCrab-macOS-arm64.dmg"><img src="img/download-macos.svg" alt="Für macOS laden – v0.7.5 · Apple Silicon (.dmg)" width="260" height="56"></a>
 <a class="cta-btn" href="https://testflight.apple.com/join/KBmvKVpT"><img src="img/download-ios.svg" alt="iOS &amp; iPadOS App – kostenlos via Apple TestFlight" width="260" height="56"></a>
 </div>
-<p class="version reveal d3">✓ Offiziell von Apple notarisiert · ✓ Automatische Updates · ✓ Version v0.7.5 · macOS 14+ / iOS 17+</p>
+<div class="brew-pill reveal d3"><span class="brew-label">Homebrew</span><code>brew install --cask GiroCrab/GiroCrab/girocrab</code><button type="button" class="copy-btn" data-copy="brew install --cask GiroCrab/GiroCrab/girocrab" aria-label="Homebrew-Befehl kopieren">Kopieren</button></div>
+<ul class="trust reveal d3"><li>✓ Apple notarisiert</li><li>✓ Automatische Updates</li><li>✓ SQLCipher-verschlüsselt</li><li>✓ Open Source GPLv3</li></ul>
 <div class="showcase-wrap reveal d4">
 <div class="showcase">
 <img class="shot-light" src="img/screenshots/overview.png" alt="GiroCrab Banking-App für macOS – Übersicht mit Konten und Kategorien (Hellmodus)" width="2200" height="1314" fetchpriority="high">
@@ -118,17 +118,28 @@
 <img class="phone" src="img/screenshots/ios-overview.png" alt="GiroCrab auf dem iPhone – Übersicht mit Demo-Daten" width="552" height="1200">
 </div>
 </div>
-<p class="note">Alle Screenshots zeigen ausschließlich erfundene Demo-Daten.</p>
+<p class="note">v0.7.5 · macOS 14+ / iOS 17+ · Alle Screenshots zeigen ausschließlich erfundene Demo-Daten.</p>
 </div></section>
 <section id="start"><div class="wrap">
 <div class="section-head">
   <span class="eyebrow">Loslegen</span>
   <h2>In wenigen Minuten startklar</h2>
 </div>
-<div class="grid">
-<div class="card"><h3>1. Lokaler Tresor</h3><p>GiroCrab legt beim ersten Start einen verschlüsselten SQLCipher-Tresor auf deinem Gerät an. Kein Konto, keine Anmeldung.</p></div>
-<div class="card"><h3>2. Banken verbinden oder Dateien importieren</h3><p>Richte Bankzugänge per FinTS oder PSD2 ein oder übernimm Umsätze aus Exportdateien.</p></div>
-<div class="card"><h3>3. Lokal auswerten</h3><p>Kategorien, Regeln, Vermögensübersicht und Kreditverlauf werden auf deinem Gerät berechnet.</p></div>
+<div class="steps">
+<div class="card step"><span class="step-no">1</span><div><h3>Lokaler Tresor</h3><p>Beim ersten Start entsteht ein verschlüsselter SQLCipher-Tresor auf deinem Gerät. Kein Konto, keine Anmeldung.</p></div></div>
+<div class="card step"><span class="step-no">2</span><div><h3>Verbinden oder importieren</h3><p>Bankzugänge per FinTS oder PSD2 einrichten oder Umsätze aus Exportdateien übernehmen.</p></div></div>
+<div class="card step"><span class="step-no">3</span><div><h3>Lokal auswerten</h3><p>Kategorien, Regeln, Vermögen und Kreditverlauf werden auf deinem Gerät berechnet.</p></div></div>
+</div>
+</div></section>
+<section id="sicherheit"><div class="wrap">
+<div class="section-head">
+  <span class="eyebrow">Vertrauen</span>
+  <h2>Sicherheit &amp; Vertrauen</h2>
+</div>
+<div class="grid grid-3">
+<div class="card"><h3>100 % lokal</h3><p>Verschlüsselter SQLCipher-Tresor (AES-256), der Schlüssel liegt im Schlüsselbund deines Geräts. Es gibt keinen Entwickler-Server.</p></div>
+<div class="card"><h3>Keine Telemetrie</h3><p>Kein Tracking, keine Cookies. Problemberichte werden vor dem Teilen automatisch von persönlichen Daten bereinigt.</p></div>
+<div class="card"><h3>Open Source (GPLv3)</h3><p>Der gesamte Quellcode ist öffentlich auf GitHub und überprüfbar, lizenziert unter GPL-3.0-or-later.</p></div>
 </div>
 </div></section>
 <section id="neu"><div class="wrap">
@@ -188,11 +199,11 @@
 </div>
 <!-- TODO(Andreas): bitte prüfen: Screenshot des Import-Assistenten ohne Fremdmarke neu aufnehmen (alter Screenshot entfernt) -->
 </div></section>
-<section id="schnittstellen"><div class="wrap">
+<section id="banken"><div class="wrap">
 <div class="section-head">
   <span class="eyebrow">Schnittstellen</span>
   <h2>Unterstützte Banken &amp; Schnittstellen</h2>
-  <p class="section-lead">Welche Institute konkret getestet sind, zeigt die Tabelle in den <a href="#banken">häufigen Fragen</a>.</p>
+  <p class="section-lead">Welche Institute konkret getestet sind, zeigt die Tabelle unten.</p>
 </div>
 <div class="grid grid-2">
 <div class="card"><h3>FinTS / HBCI</h3><p>Direkte Anbindung per FinTS 3.0 mit PIN/TAN, inklusive SEPA-Überweisungen.</p></div>
@@ -200,17 +211,10 @@
 <div class="card"><h3>Datei- &amp; Datenbank-Import</h3><p>MT940, CAMT.053, CSV und unterstützte Datenbanken – nur lesend und mit Dublettenprüfung.</p></div>
 <div class="card"><h3>Offline-Konten</h3><p>Konten ohne Bankanbindung, Kredite und Sachwerte wie Gold oder Immobilien lassen sich manuell führen.</p></div>
 </div>
-</div></section>
-<section id="sicherheit"><div class="wrap">
-<div class="section-head">
-  <span class="eyebrow">Vertrauen</span>
-  <h2>Sicherheit &amp; Vertrauen</h2>
-</div>
-<div class="grid grid-3">
-<div class="card"><h3>100 % lokal</h3><p>Verschlüsselter SQLCipher-Tresor (AES-256), der Schlüssel liegt im Schlüsselbund deines Geräts. Es gibt keinen Entwickler-Server.</p></div>
-<div class="card"><h3>Keine Telemetrie</h3><p>Kein Tracking, keine Cookies. Problemberichte werden vor dem Teilen automatisch von persönlichen Daten bereinigt.</p></div>
-<div class="card"><h3>Open Source (GPLv3)</h3><p>Der gesamte Quellcode ist öffentlich auf GitHub und überprüfbar, lizenziert unter GPL-3.0-or-later.</p></div>
-</div>
+
+<!-- sync:connectors:start -->
+<div class="matrix-wrap"><table class="bank-matrix"><thead><tr><th scope="col">Bank</th><th scope="col">Schnittstelle</th><th scope="col">Umsätze</th><th scope="col">Salden</th><th scope="col">Depot</th><th scope="col">Überweisung</th><th scope="col">Dauerauftrag</th><th scope="col">PDF/Postfach</th><th scope="col">Status</th></tr></thead><tbody><tr class="status-verified"><td>1822direkt</td><td>FinTS 3.0</td><td>✓</td><td>✓</td><td>✓</td><td>–</td><td>–</td><td>✓</td><td>✅ Verifiziert</td></tr><tr class="status-verified"><td>Consorsbank</td><td>FinTS 3.0</td><td>✓</td><td>✓</td><td>✓</td><td>–</td><td>–</td><td>–</td><td>✅ Verifiziert</td></tr><tr class="status-verified"><td>FinTS-Bank (BLZ + URL)</td><td>FinTS 3.0</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>–</td><td>✓</td><td>✅ Verifiziert</td></tr><tr class="status-testingwanted"><td>ING</td><td>FinTS 3.0</td><td>✓</td><td>✓</td><td>–</td><td>–</td><td>–</td><td>–</td><td>🧪 Test gesucht <a href="https://github.com/GiroCrab/GiroCrab/issues/313">#313</a></td></tr><tr class="status-verified"><td>Miles &amp; More Kreditkarte (Deutsche Bank)</td><td>FinTS 3.0</td><td>✓</td><td>✓</td><td>–</td><td>–</td><td>–</td><td>–</td><td>✅ Verifiziert</td></tr><tr class="status-verified"><td>Volksbank Kassel Göttingen</td><td>FinTS 3.0</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>–</td><td>✓</td><td>✅ Verifiziert</td></tr><tr class="status-verified"><td>bunq</td><td>REST-API</td><td>✓</td><td>✓</td><td>–</td><td>✓</td><td>–</td><td>✓</td><td>✅ Verifiziert</td></tr><tr class="status-verified"><td>comdirect</td><td>REST-API</td><td>✓</td><td>✓</td><td>✓</td><td>–</td><td>–</td><td>✓</td><td>✅ Verifiziert</td></tr><tr class="status-testingwanted"><td>Interactive Brokers (IBKR)</td><td>REST-API</td><td>✓</td><td>✓</td><td>✓</td><td>–</td><td>–</td><td>–</td><td>🧪 Test gesucht</td></tr><tr class="status-limited"><td>PayPal</td><td>REST-API</td><td>✓</td><td>✓</td><td>–</td><td>–</td><td>–</td><td>–</td><td>⚠️ Mit Einschränkungen <a href="https://github.com/GiroCrab/GiroCrab/issues/156">#156</a></td></tr><tr class="status-testingwanted"><td>Scalable Capital</td><td>REST-API</td><td>✓</td><td>✓</td><td>✓</td><td>–</td><td>–</td><td>–</td><td>🧪 Test gesucht <a href="https://github.com/GiroCrab/GiroCrab/issues/45">#45</a></td></tr><tr class="status-verified"><td>Amazon Visa</td><td>Enable Banking (PSD2)</td><td>✓</td><td>✓</td><td>–</td><td>–</td><td>–</td><td>–</td><td>✅ Verifiziert</td></tr><tr class="status-verified"><td>American Express</td><td>Enable Banking (PSD2)</td><td>✓</td><td>✓</td><td>–</td><td>–</td><td>–</td><td>–</td><td>✅ Verifiziert</td></tr><tr class="status-testingwanted"><td>Revolut</td><td>Enable Banking (PSD2)</td><td>✓</td><td>✓</td><td>–</td><td>–</td><td>–</td><td>–</td><td>🧪 Test gesucht <a href="https://github.com/GiroCrab/GiroCrab/issues/289">#289</a></td></tr><tr class="status-limited"><td>Weitere Banken per PSD2 (Enable Banking)</td><td>Enable Banking (PSD2)</td><td>✓</td><td>✓</td><td>–</td><td>–</td><td>–</td><td>–</td><td>⚠️ Mit Einschränkungen</td></tr><tr class="status-testingwanted"><td>Amazon Bestellungen</td><td>Web-Portal</td><td>✓</td><td>–</td><td>–</td><td>–</td><td>–</td><td>–</td><td>🧪 Test gesucht</td></tr><tr class="status-testingwanted"><td>easybank (ehem. Barclays)</td><td>Web-Portal</td><td>✓</td><td>✓</td><td>–</td><td>–</td><td>–</td><td>✓</td><td>🧪 Test gesucht</td></tr><tr class="status-verified"><td>FNZ Bank</td><td>Web-Portal</td><td>✓</td><td>✓</td><td>✓</td><td>–</td><td>–</td><td>✓</td><td>✅ Verifiziert</td></tr><tr class="status-verified"><td>quirion</td><td>Web-Portal</td><td>✓</td><td>✓</td><td>✓</td><td>–</td><td>–</td><td>✓</td><td>✅ Verifiziert</td></tr><tr class="status-limited"><td>Trade Republic</td><td>Web-Portal</td><td>✓</td><td>✓</td><td>–</td><td>–</td><td>–</td><td>✓</td><td>⚠️ Mit Einschränkungen</td></tr></tbody></table></div><p class="matrix-note">Weitere deutsche Banken mit FinTS 3.0 (PIN/TAN) lassen sich über BLZ und FinTS-URL anbinden (2.011 Institute im FinTS-Verzeichnis); europäische PSD2-Banken über Enable Banking mit einer eigenen, kostenlosen Anwendung.</p><p class="matrix-note"><small>✅ mit echten Konten getestet · 🧪 implementiert, Rückmeldungen aus der Praxis willkommen (Issue verlinkt) · ⚠️ bekannte Einschränkungen · ✓ umgesetzt · – nicht umgesetzt. Bei FinTS hängen Depot und PDF-Kontoauszüge vom Angebot der jeweiligen Bank ab.</small></p>
+<!-- sync:connectors:end -->
 </div></section>
 <section id="mitbauen"><div class="wrap">
 <div class="section-head">
@@ -260,9 +264,7 @@
 </div></section>
 <section id="faq"><div class="wrap">
 <h2>Häufige Fragen</h2>
-<details><summary id="banken">Unterstützt GiroCrab meine Bank?</summary><p>Banken mit FinTS 3.0 (PIN/TAN) lassen sich grundsätzlich über BLZ und FinTS-URL anbinden. Mit echten Konten getestet sind bisher die in der Tabelle als verifiziert markierten Institute; bei anderen Banken kann es Einschränkungen geben. <!-- sync:connectors:start -->
-<div class="matrix-wrap"><table class="bank-matrix"><thead><tr><th scope="col">Bank</th><th scope="col">Schnittstelle</th><th scope="col">Umsätze</th><th scope="col">Salden</th><th scope="col">Depot</th><th scope="col">Überweisung</th><th scope="col">Dauerauftrag</th><th scope="col">PDF/Postfach</th><th scope="col">Status</th></tr></thead><tbody><tr class="status-verified"><td>1822direkt</td><td>FinTS 3.0</td><td>✓</td><td>✓</td><td>✓</td><td>–</td><td>–</td><td>✓</td><td>✅ Verifiziert</td></tr><tr class="status-verified"><td>Consorsbank</td><td>FinTS 3.0</td><td>✓</td><td>✓</td><td>✓</td><td>–</td><td>–</td><td>–</td><td>✅ Verifiziert</td></tr><tr class="status-verified"><td>FinTS-Bank (BLZ + URL)</td><td>FinTS 3.0</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>–</td><td>✓</td><td>✅ Verifiziert</td></tr><tr class="status-testingwanted"><td>ING</td><td>FinTS 3.0</td><td>✓</td><td>✓</td><td>–</td><td>–</td><td>–</td><td>–</td><td>🧪 Test gesucht <a href="https://github.com/GiroCrab/GiroCrab/issues/313">#313</a></td></tr><tr class="status-verified"><td>Miles &amp; More Kreditkarte (Deutsche Bank)</td><td>FinTS 3.0</td><td>✓</td><td>✓</td><td>–</td><td>–</td><td>–</td><td>–</td><td>✅ Verifiziert</td></tr><tr class="status-verified"><td>Volksbank Kassel Göttingen</td><td>FinTS 3.0</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>–</td><td>✓</td><td>✅ Verifiziert</td></tr><tr class="status-verified"><td>bunq</td><td>REST-API</td><td>✓</td><td>✓</td><td>–</td><td>✓</td><td>–</td><td>✓</td><td>✅ Verifiziert</td></tr><tr class="status-verified"><td>comdirect</td><td>REST-API</td><td>✓</td><td>✓</td><td>✓</td><td>–</td><td>–</td><td>✓</td><td>✅ Verifiziert</td></tr><tr class="status-testingwanted"><td>Interactive Brokers (IBKR)</td><td>REST-API</td><td>✓</td><td>✓</td><td>✓</td><td>–</td><td>–</td><td>–</td><td>🧪 Test gesucht</td></tr><tr class="status-limited"><td>PayPal</td><td>REST-API</td><td>✓</td><td>✓</td><td>–</td><td>–</td><td>–</td><td>–</td><td>⚠️ Mit Einschränkungen <a href="https://github.com/GiroCrab/GiroCrab/issues/156">#156</a></td></tr><tr class="status-testingwanted"><td>Scalable Capital</td><td>REST-API</td><td>✓</td><td>✓</td><td>✓</td><td>–</td><td>–</td><td>–</td><td>🧪 Test gesucht <a href="https://github.com/GiroCrab/GiroCrab/issues/45">#45</a></td></tr><tr class="status-verified"><td>Amazon Visa</td><td>Enable Banking (PSD2)</td><td>✓</td><td>✓</td><td>–</td><td>–</td><td>–</td><td>–</td><td>✅ Verifiziert</td></tr><tr class="status-verified"><td>American Express</td><td>Enable Banking (PSD2)</td><td>✓</td><td>✓</td><td>–</td><td>–</td><td>–</td><td>–</td><td>✅ Verifiziert</td></tr><tr class="status-testingwanted"><td>Revolut</td><td>Enable Banking (PSD2)</td><td>✓</td><td>✓</td><td>–</td><td>–</td><td>–</td><td>–</td><td>🧪 Test gesucht <a href="https://github.com/GiroCrab/GiroCrab/issues/289">#289</a></td></tr><tr class="status-limited"><td>Weitere Banken per PSD2 (Enable Banking)</td><td>Enable Banking (PSD2)</td><td>✓</td><td>✓</td><td>–</td><td>–</td><td>–</td><td>–</td><td>⚠️ Mit Einschränkungen</td></tr><tr class="status-testingwanted"><td>Amazon Bestellungen</td><td>Web-Portal</td><td>✓</td><td>–</td><td>–</td><td>–</td><td>–</td><td>–</td><td>🧪 Test gesucht</td></tr><tr class="status-testingwanted"><td>easybank (ehem. Barclays)</td><td>Web-Portal</td><td>✓</td><td>✓</td><td>–</td><td>–</td><td>–</td><td>✓</td><td>🧪 Test gesucht</td></tr><tr class="status-verified"><td>FNZ Bank</td><td>Web-Portal</td><td>✓</td><td>✓</td><td>✓</td><td>–</td><td>–</td><td>✓</td><td>✅ Verifiziert</td></tr><tr class="status-verified"><td>quirion</td><td>Web-Portal</td><td>✓</td><td>✓</td><td>✓</td><td>–</td><td>–</td><td>✓</td><td>✅ Verifiziert</td></tr><tr class="status-limited"><td>Trade Republic</td><td>Web-Portal</td><td>✓</td><td>✓</td><td>–</td><td>–</td><td>–</td><td>✓</td><td>⚠️ Mit Einschränkungen</td></tr></tbody></table></div><p class="matrix-note">Weitere deutsche Banken mit FinTS 3.0 (PIN/TAN) lassen sich über BLZ und FinTS-URL anbinden (2.011 Institute im FinTS-Verzeichnis); europäische PSD2-Banken über Enable Banking mit einer eigenen, kostenlosen Anwendung.</p><p class="matrix-note"><small>✅ mit echten Konten getestet · 🧪 implementiert, Rückmeldungen aus der Praxis willkommen (Issue verlinkt) · ⚠️ bekannte Einschränkungen · ✓ umgesetzt · – nicht umgesetzt. Bei FinTS hängen Depot und PDF-Kontoauszüge vom Angebot der jeweiligen Bank ab.</small></p>
-<!-- sync:connectors:end --></p></details>
+<details><summary>Unterstützt GiroCrab meine Bank?</summary><p>Banken mit FinTS 3.0 (PIN/TAN) lassen sich grundsätzlich über BLZ und FinTS-URL anbinden. Mit echten Konten getestet sind bisher die in der Tabelle als verifiziert markierten Institute; bei anderen Banken kann es Einschränkungen geben. Die Übersicht findest du im Abschnitt <a href="#banken">Unterstützte Banken &amp; Schnittstellen</a>.</p></details>
 <details><summary>Kann ich vorhandene Daten übernehmen?</summary><p>Ja. GiroCrab kann Umsätze, Kategorien und Notizen aus unterstützten Exportdateien oder Datenbanken einlesen (streng lesend) und prüft dabei auf Dubletten. Eine Vorschau zeigt vor dem Import, was erkannt wurde.</p></details>
 <details><summary>Kostet GiroCrab etwas?</summary><p>Nein. GiroCrab ist 100 % kostenlos und quelloffen (GPL-3.0-or-later), ohne Abo und ohne Werbung.</p></details>
 <details><summary>Wo liegen meine Zugangsdaten?</summary><p>Ausschließlich verschlüsselt auf deinem Mac: im SQLCipher-Tresor, dessen Schlüssel im macOS-Schlüsselbund liegt. Es gibt keinen Server, an den sie gesendet werden.</p></details>
@@ -291,5 +293,6 @@
 <div>Keine Cookies · kein Tracking · keine externen Ressourcen</div>
 <div>Genannte Marken von Banken und Zahlungsdiensten gehören ihren jeweiligen Inhabern. GiroCrab ist unabhängig von diesen Anbietern.</div>
 </div></footer>
+<script src="js/copy.js" defer></script>
 </body>
 </html>
