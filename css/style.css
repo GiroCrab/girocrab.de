@@ -303,3 +303,8 @@ h1{margin:0 0 .25rem}
 .bank-filter input[hidden]{display:none}
 #bank-filter-count{opacity:.7;font-size:.9rem}
 .bank-matrix tr[hidden]{display:none}
+/* iOS-Vorschau im Dunkelmodus (#765): kein dunkler iOS-Screenshot vorhanden → Farben invertieren, Farbtöne erhalten */
+.showcase img.phone{transition:filter .2s}
+@media(prefers-color-scheme:dark){.showcase img.phone{filter:invert(1) hue-rotate(180deg)}}
+body:has(#m-light:checked) .showcase img.phone{filter:none}
+body:has(#m-dark:checked) .showcase img.phone{filter:invert(1) hue-rotate(180deg)}
