@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; img-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'">
+<title>GiroCrab – PSD2 (Enable Banking) kostenlos für eigene Konten einrichten</title>
+<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<meta name="description" content="Interaktive Schritt-für-Schritt-Anleitung: Eigene Bankkonten (z. B. N26, Trade Republic, C24, Revolut, Amex) kostenlos per PSD2 / Enable Banking in GiroCrab einrichten.">
+<link rel="canonical" href="https://girocrab.de/girocrab_psd2_anleitung.html">
+<link rel="stylesheet" href="css/psd2-guide.css">
+</head>
+<body>
+<div class="container">
+  <div class="top-links">
+    <a href="index.html">← Zurück zu girocrab.de</a>
+    <a href="https://github.com/GiroCrab/GiroCrab/blob/main/docs/enable-banking-setup.md">Markdown-Anleitung auf GitHub →</a>
+  </div>
+  <header>
+    <h1>🦀 PSD2 (Enable Banking) kostenlos für eigene Konten einrichten</h1>
+    <p>Interaktive Schritt-für-Schritt-Vorschau: Klicke dich genau so durch die Einrichtung, wie sie auf <code>enablebanking.com</code>, in deiner Banking-App (z.&nbsp;B. Trade Republic oder N26) und in GiroCrab abläuft – 100&nbsp;% lokal im Browser ohne externe Server.</p>
+  </header>
+  <div class="stepper" id="stepper"></div>
+  <div class="coach">
+    <strong id="coachTitle"></strong>
+    <span id="coachHint"></span>
+  </div>
+  <div class="browser">
+    <div class="browser-bar">
+      <div class="dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
+      <div class="url-bar" id="urlBar">https://enablebanking.com/cp/applications</div>
+    </div>
+    <div class="screen" id="screen"></div>
+  </div>
+  <div class="footer-nav">
+    <button type="button" class="btn-outline" id="prevBtn">← Zurück</button>
+    <button type="button" class="btn-eb" id="nextBtn">Weiter zum nächsten Schritt →</button>
+  </div>
+</div>
+<script src="js/psd2-guide.js"></script>
+</body>
+</html>
