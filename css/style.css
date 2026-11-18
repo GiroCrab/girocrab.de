@@ -308,3 +308,6 @@ h1{margin:0 0 .25rem}
 @media(prefers-color-scheme:dark){.showcase img.phone{filter:invert(1) hue-rotate(180deg)}}
 body:has(#m-light:checked) .showcase img.phone{filter:none}
 body:has(#m-dark:checked) .showcase img.phone{filter:invert(1) hue-rotate(180deg)}
+/* Banken-Tabelle: auf schmalen Screens nur die Tabelle scrollen, nicht die Seite */
+.matrix-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%}
+.bank-matrix th:first-child,.bank-matrix td:first-child{position:sticky;left:0;z-index:1;background:var(--bg)}
