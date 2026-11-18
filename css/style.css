@@ -30,7 +30,7 @@ h2{font-size:1.8rem;letter-spacing:-.01em;margin:0 0 1.5rem}
 footer{border-top:1px solid var(--line);padding:1.5rem 0 2.5rem;color:var(--muted);font-size:.9rem}
 footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:.75rem}
 footer a{color:var(--muted);margin-right:1rem}
-.legal{padding:2.5rem 0 4rem;max-width:44rem}
+.legal{padding:2.5rem 1.25rem 4rem;max-width:44rem}
 .legal h1{font-size:2rem}.legal h2{font-size:1.2rem;margin:1.8rem 0 .5rem}
 .mail{unicode-bidi:bidi-override;direction:rtl;display:inline-block}
 
